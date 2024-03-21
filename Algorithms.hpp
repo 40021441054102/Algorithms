@@ -10,7 +10,7 @@
 # else
     # pragma message \
         "40021441054102 Project Configured and Initialized Successfully, Compiling Under RKACPB Support"
-# endif // MRL_HSL
+# endif // RKACPB
 //-- Algorithms
 # ifndef ALGORITHMS_OMID_SOJOODI
     /**
@@ -35,6 +35,8 @@
     //-- Include Needed Libraries
     # include <iostream>
     # include <chrono>
+    # include <vector>
+    # include <random>
     //-- Define Log Messages
     # define WARNING "\033[38;2;255;255;0m[WARNING]\033[0m "
     # define SUCCESS "\033[38;2;0;255;0m[SUCCESS]\033[0m "
@@ -43,6 +45,35 @@
     # define LOG "\033[38;2;0;255;0m[LOG]\033[0m "
     # define RESET "\033[0m"
     # define TAB "   "
+    //-- Supported Algorithms
+    enum ENUM_SUPPORTED_ALGORITHMS {
+        SEARCH_BINARY,
+        SORT_INSERTION,
+        SORT_SELECTION,
+        SORT_BUBBLE,
+        SORT_QUICK,
+        SORT_MERGE,
+        SORT_HEAP,
+        MIN_MAX_ARRAY,
+        LARGE_NUMBERS_MULTIPLICATION,
+        MATRIX_MULTIPLICATION_STRASSEN,
+        MATRIX_MULTIPLICATION_SIMPLE,
+        MATRIX_MULTIPLICATION_BLOCK,
+        MATRIX_CHAIN_MULTIPLICATION,
+        DIJKSTRA,
+        FLOYD,
+        KNAPSACK_0_1,
+        KNAPSACK_FRACTIONAL,
+        KNAPSACK_BRANCH_BOUNDED,
+        TRAVELLER_SALESMAN,
+        MOVING_ON_GRID,
+        N_QUEENS,
+        BFS,
+        DFS,
+        HUFFMAN_CODING,
+        MINIMUM_SPANNING_TREE_PRIM,
+        MINIMUM_SPANNING_TREE_KRUSKAL
+    };
     //-- Class Definition
     class Algorithms {
         private:
@@ -52,15 +83,27 @@
             std::chrono::high_resolution_clock::time_point end_time;
             //-- Process Time of Algorithm
             std::chrono::duration<double> algorithm_duration;
+            //-- Data Vector
+            std::vector<int> data;
         public:
-            // //-- Constructor
-            // Algorithms();
-            // //-- Generate Random Data
-            // void generateRandomData(
-            //     int size,
-            //     int min,
-            //     int max
-            // );
+            //-- Constructor
+            Algorithms(
+                ENUM_SUPPORTED_ALGORITHMS algorithm,
+                ENUM_ALGORITHMS_DATA_METHOD data_method,
+                ENUM_ALGORIHTMS_PROCESSING_METHODS processing_method
+            );
+            //-- Destructor
+            ~Algorithms();
+            //-- Method to Generate Random Data
+            void generateRandomData(
+                int amount,
+                int min,
+                int max
+            );
+            //-- Method to Load Data from File
+            void loadDataFromFile(
+                std::string file_name
+            );
             // //-- Generate Chess Board
             // void generateChessBoard(
             //     int size,
