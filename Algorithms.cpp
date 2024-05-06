@@ -3,6 +3,7 @@
     //-- Constructor
     Algorithms::Algorithms(
         ENUM_SUPPORTED_ALGORITHMS algorithm,
+        ENUM_ALGORITHM_ENVIRONMENT environment,
         ENUM_ALGORITHMS_DATA_METHOD dataMethod = USE_RANDOM_DATA,
         ENUM_ALGORIHTMS_PROCESSING_METHODS processingMethod = USE_SINGLE_THREAD
     ) {
@@ -31,5 +32,7 @@
         std::cout << LOG "Generating Random Data ..." << RESET << std::endl;
         std::random_device rd;
         std::mt19937 gen(rd());
+        std::uniform_int_distribution<int> distribution(1, 100);
+        int random_number = distribution(gen);
     }
 # endif // ALGORITHMS_OMID_SOJOODI
