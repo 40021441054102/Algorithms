@@ -81,6 +81,22 @@
         RANDOM_DATA_SHAPE_qb
     };
     /**
+     * @enum ENUM_CALCULATE_DATA_THETA
+     * @brief Calculate Data Theta
+     * @details This Enum Contains All Supported Theta Calculation Methods for Algorithms Class
+     * 
+     * @param CALCULATE_DATA_THETA_HIGHEST Calculate Data Theta from Highest Point
+     * @param CALCULATE_DATA_THETA_LOWEST Calculate Data Theta from Lowest Point
+     * @param CALCULATE_DATA_THETA_CORNER Calculate Data Theta from Corner Point
+     * @param CALCULATE_DATA_THETA_MIDDLE Calculate Data Theta from Middle Point
+     */
+    enum ENUM_CALCULATE_DATA_THETA {
+        CALCULATE_DATA_THETA_HIGHEST,
+        CALCULATE_DATA_THETA_LOWEST,
+        CALCULATE_DATA_THETA_CORNER,
+        CALCULATE_DATA_THETA_MIDDLE,
+    };
+    /**
      * @def MAX_RANDOM_DATA
      * @brief Maximum Amount of Random Data
      * @details This Macro Defines Maximum Amount of Random Data to Generate Input Elements for Algorithms
@@ -166,6 +182,16 @@
     # ifndef GRAPHICS_OMID_SOJOODI
         # include "Graphics.hpp"
     # endif // GRAPHICS_OMID_SOJOODI
+    //-- Include Sort Algorithms
+    # ifndef ALGORITHMS_OMID_SOJOODI_SORTS
+        # include "Sorts/Sorts.hpp"
+    # endif // ALGORITHMS_OMID_SOJOODI_SORTS
+    /**
+     * @def ALGORITHMS_LABEL
+     * @brief Algorithms Log Message
+     * @details This Macro Defines Algorithms Log Message Label
+     */
+    # define ALGORITHMS_LABEL "\033[38;2;177;245;217m[ALGORITHMS]\033[0m "
     //-- Include Needed Libraries
     # include <iostream>
     # include <chrono>
@@ -224,11 +250,6 @@
              * @see ENUM_ALGORITHM_ENVIRONMENT              (\ref Graphics.hpp "Graphics" Environment)
              * @see ENUM_ALGORITHMS_DATA_METHOD             (\ref Algorithms.hpp "Algorithm" Data Generation Methods)
              * @see ENUM_ALGORIHTMS_PROCESSING_METHODS      (\ref Algorithms.hpp "Algorithm" Processing Methods)
-             * 
-             * @param algorithm 
-             * @param environment 
-             * @param data_method 
-             * @param processing_method 
              */
             Algorithms(
                 ENUM_SUPPORTED_ALGORITHMS algorithm,
@@ -284,7 +305,8 @@
                 int min,
                 int max,
                 ENUM_ALGORITHM_ENVIRONMENT environment = ENVIRONMENT_2D,
-                ENUM_RANDOM_DATA_SHAPES shape = RANDOM_DATA_SHAPE_ELLIPSE
+                ENUM_RANDOM_DATA_SHAPES shape = RANDOM_DATA_SHAPE_ELLIPSE,
+                ENUM_CALCULATE_DATA_THETA calc_theta = CALCULATE_DATA_THETA_CORNER
             );
             /**
              * @brief Load Data from File
@@ -297,6 +319,18 @@
             void loadDataFromFile(
                 std::string file_name
             );
+            /**
+             * @brief Sort Algorithms
+             * @details This Method Contains Several Sort Algorithms to Use.
+             * 
+             * @param ALGORITHM_SORT_INSERTION Insertion Sort Algorithm
+             * @param ALGORITHM_SORT_SELECTION Selection Sort Algorithm
+             * @param ALGORITHM_SORT_BUBBLE Bubble Sort Algorithm
+             * @param ALGORITHM_SORT_QUICK Quick Sort Algorithm
+             * @param ALGORITHM_SORT_MERGE Merge Sort Algorithm
+             * @param ALGORITHM_SORT_HEAP Heap Sort Algorithm
+             */
+            Sorts sorts;
             // //-- Generate Chess Board
             // void generateChessBoard(
             //     int size,

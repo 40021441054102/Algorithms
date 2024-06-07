@@ -1,38 +1,73 @@
 # ifndef ALGORITHMS_OMID_SOJOODI
     # include "Algorithms.hpp"
-    //-- Constructor
+    /**
+     * @brief Algorithms Constructor
+     * @details This Constructor Initializes the Algorithm with the Given Parameters.
+     * 
+     * @param algorithm The Algorithm to Use
+     * @param environment The Environment to Use
+     * @param dataMethod The Data Method to Use
+     * @param processingMethod The Processing Method to Use
+     * 
+     * @see ENUM_SUPPORTED_ALGORITHMS               (\ref Algorithms.hpp "Algorithm" Supported by the Class)
+     * @see ENUM_ALGORITHM_ENVIRONMENT              (\ref Graphics.hpp "Graphics" Environment)
+     * @see ENUM_ALGORITHMS_DATA_METHOD             (\ref Algorithms.hpp "Algorithm" Data Generation Methods)
+     * @see ENUM_ALGORIHTMS_PROCESSING_METHODS      (\ref Algorithms.hpp "Algorithm" Processing Methods)
+     */
     Algorithms::Algorithms(
         ENUM_SUPPORTED_ALGORITHMS algorithm,
         ENUM_ALGORITHM_ENVIRONMENT environment,
         ENUM_ALGORITHMS_DATA_METHOD dataMethod = USE_RANDOM_DATA,
         ENUM_ALGORIHTMS_PROCESSING_METHODS processingMethod = USE_SINGLE_THREAD
     ) {
-        //-- Generate Random Data
-        if (dataMethod == USE_RANDOM_DATA) {
-            generateRandomData(
-                MAX_RANDOM_DATA,
-                int(WINDOW_WIDTH * 0.1),
-                int(WINDOW_WIDTH * 0.9),
-                environment,
-                RANDOM_DATA_SHAPE_SPIRAL
-            );
+        std::cout << MODULE ALGORITHMS_LABEL "Initialized" << std::endl;
+        //-- Initialize Algorithm
+        switch (algorithm) {
+            //-- Bubble Sort
+            case ALGORITHM_SORT_BUBBLE: {
+                //-- Generate Random Data
+                if (dataMethod == USE_RANDOM_DATA) {
+                    generateRandomData(
+                        MAX_RANDOM_DATA,
+                        int(WINDOW_WIDTH * 0.1),
+                        int(WINDOW_WIDTH * 0.9),
+                        environment,
+                        RANDOM_DATA_SHAPE_SPIRAL,
+                        CALCULATE_DATA_THETA_HIGHEST
+                    );
+                }
+                // std::cout << LOG "Bubble Sort Algorithm" << RESET << std::endl;
+                // sorts.bubble.sort();
+                break;
+            }
         }
         std::cout << LOG "Starting Algorithm Process Time" << RESET << std::endl;
         begin_time = std::chrono::high_resolution_clock::now();
     }
-    //-- Destructor
+    /**
+     * @brief Algorithms Destructor
+     * @details This Destructor Finalizes the Algorithm and Shows the Processing Time.
+     */
     Algorithms::~Algorithms() {
         end_time = std::chrono::high_resolution_clock::now();
         algorithm_duration = std::chrono::duration_cast<std::chrono::duration<double>>(end_time - begin_time);
         std::cout << LOG "Algorithm Process Time: " << algorithm_duration.count() << "s" << RESET << std::endl;
     }
-    //-- Method to Generate Random Data
+    /**
+     * @brief Generate Random Data
+     * @details This Method Generates Random Data for the Algorithm.
+     * 
+     * @param amount The Amount of Data to Generate
+     * @param min The Minimum Value of Data
+     * @param max The Maximum Value of Data
+     */
     void Algorithms::generateRandomData(
         int amount,
         int min,
         int max,
         ENUM_ALGORITHM_ENVIRONMENT environment,
-        ENUM_RANDOM_DATA_SHAPES shape
+        ENUM_RANDOM_DATA_SHAPES shape,
+        ENUM_CALCULATE_DATA_THETA calc_theta
     ) {
         std::cout << LOG "Generating Random Data ..." << RESET << std::endl;
         //-- Generate Random Data According to Algorithm Environment
@@ -50,7 +85,7 @@
             std::uniform_real_distribution<> dist_theta;
             std::uniform_real_distribution<> dist_offset(-37, 37);
             if (shape == RANDOM_DATA_SHAPE_SPIRAL or shape == RANDOM_DATA_SHAPE_SPIRAL_ROAD or shape == RANDOM_DATA_SHAPE_SATURN or shape == RANDOM_DATA_SHAPE_qb) {
-                dist_theta = std::uniform_real_distribution<>(0, 12.5 * M_PI);
+                dist_theta = std::uniform_real_distribution<>(0, 13.5 * M_PI);
             } else if (shape == RANDOM_DATA_SHAPE_qb) {
                 dist_theta = std::uniform_real_distribution<>(0, 37.5 * M_PI);
             } else {
@@ -58,12 +93,13 @@
             }
             //-- Generate Center Dense Random Points
             int x, y;
+            bool calc_flag = true;
             for (int i = 0; i < amount; i++) {
                 if (shape == RANDOM_DATA_SHAPE_SPIRAL) {
+                    double offset = dist_offset(gen);
                     const double a = 5;
                     const double b = 0.12;
                     double theta = dist_theta(gen);
-                    double offset = dist_offset(gen);
                     double r = a * std::exp(b * theta) + offset;
                     x = static_cast<int>(WINDOW_WIDTH / 2 - r * std::cos(theta));
                     y = static_cast<int>(WINDOW_HEIGHT / 2 + r * std::sin(theta));
@@ -148,18 +184,71 @@
                 } else {
                     show_flag = false;
                 }
+                //-- Calculate Theta
+                double theta;
+                if (calc_theta == CALCULATE_DATA_THETA_MIDDLE) {
+                    theta = std::atan2(y - WINDOW_HEIGHT / 2, x - WINDOW_WIDTH / 2);
+                } else if (calc_theta == CALCULATE_DATA_THETA_CORNER) {
+                    theta = std::atan2(y, x);
+                } else {
+                    theta = 0;
+                    calc_flag = false;
+                }
                 //-- Draw Point
                 if (x >= min && x < max && y >= min && y < max) {
                     graphics.drawPoint(
                         env::Point2D(
                             x,
                             y,
-                            0,
+                            theta,
                             POINT_COLOR
                         ),
                         true,
-                        show_flag
+                        show_flag,
+                        SHOW_POINT_NORMAL,
+                        SHOW_ON_MAIN_WINDOW
                     );
+                }
+            }
+            //-- Check if Calculating Theta Flag is True
+            if (calc_flag == false) {
+                if (calc_theta == CALCULATE_DATA_THETA_HIGHEST) {
+                    //-- Find Highest Point
+                    int index = 0;
+                    int highest_point = 0;
+                    for (int i = 0; i < graphics.points2D.size(); i++) {
+                        if (graphics.points2D[i].y < graphics.points2D[highest_point].y) {
+                            //-- Show Line from Current Point to Last Highest Point
+                            if (index > 0) {
+                                graphics.drawLine(
+                                    graphics.points2D[highest_point],
+                                    graphics.points2D[i],
+                                    std::to_string(index),
+                                    cv::Scalar(126, 128, 88),
+                                    LINE_TICKNESS,
+                                    false,
+                                    true,
+                                    SHOW_LINE_WEIGHTED,
+                                    SHOW_ON_TEMP_WINDOW
+                                );
+                            }
+                            //-- Show Point Itself
+                            graphics.drawPoint(
+                                graphics.points2D[i],
+                                false,
+                                true,
+                                SHOW_POINT_RING,
+                                SHOW_ON_TEMP_WINDOW
+                            );
+                            //-- Update Highest Point
+                            highest_point = i;
+                            //-- Increase Index
+                            index++;
+                        }
+                    }
+                } else if (calc_theta == CALCULATE_DATA_THETA_LOWEST) {
+                } else {
+                    std::cout << TAB ERROR "Theta Calculation Method Not Supported" << std::endl;
                 }
             }
             //-- Show Graphics
@@ -175,4 +264,5 @@
         std::uniform_int_distribution<int> distribution(1, 100);
         int random_number = distribution(gen);
     }
+    //-- Method to C
 # endif // ALGORITHMS_OMID_SOJOODI
