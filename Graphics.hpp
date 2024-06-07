@@ -25,44 +25,14 @@
     # ifndef _X11_XLIB_H_
         # include <X11/Xlib.h>
     # endif // _X11_XLIB_H_
-    //-- Include IOStream
-    # ifndef _GLIBCXX_IOSTREAM
-        # include <iostream>
-    # endif // _GLIBCXX_IOSTREAM
-    // - Include Exception
+    //-- Include Exception
     # ifndef __EXCEPTION__
         # include <exception>
     # endif // _GLIBCXX_EXCEPTION
-    /**
-     * @def WARNING
-     * @brief Warning Message
-     * @details This Macro Defines Warning Message Log Label for Algorithms Class
-     */
-    # define WARNING "\033[38;2;255;255;0m[WARNING]\033[0m "
-    /**
-     * @def SUCCESS
-     * @brief Success Message
-     * @details This Macro Defines Success Message Log Label for Algorithms Class
-     */
-    # define SUCCESS "\033[38;2;0;255;0m[SUCCESS]\033[0m "
-    /**
-     * @def ERROR
-     * @brief Error Message
-     * @details This Macro Defines Error Message Log Label for Algorithms Class
-     */
-    # define ERROR "\033[38;2;255;0;0m[ERROR]\033[0m "
-    /**
-     * @def INFO
-     * @brief Information Message
-     * @details This Macro Defines Information Message Log Label for Algorithms Class
-     */
-    # define INFO "\033[38;2;0;255;255m[INFO]\033[0m "
-    /**
-     * @def LOG
-     * @brief Log Message
-     * @details This Macro Defines Log Message Log Label for Algorithms Class
-     */
-    # define LOG "\033[38;2;170;170;170m[LOG]\033[0m "
+    //-- Include Configurations
+    # ifndef ALGORITHMS_OMID_SOJOODI_CONFIGS
+        # include "Configs.hpp"
+    # endif // ALGORITHMS_OMID_SOJOODI_CONFIGS
     /**
      * @brief Cyan Color Configuration
      * @details This Macro Defines the Cyan Color
@@ -78,29 +48,17 @@
      */
     # define COLOR_CYAN_DARK                        cv::Scalar(170, 170, 0)
     /**
-     * @def RESET
-     * @brief Reset Message
-     * @details This Macro Resets Log Message Format
-     */
-    # define RESET "\033[0m"
-    /**
-     * @def TAB
-     * @brief Tab Message
-     * @details This Macro Adds Tab to Log Messages
-     */
-    # define TAB "   "
-    /**
      * @def WINDOW_WIDTH
      * @brief Window Width Configuration
      * @details This Macro Defines the Width of the Window
      */
-    # define WINDOW_WIDTH                           1300
+    # define WINDOW_WIDTH                           1730
     /**
      * @def WINDOW_HEIGHT
      * @brief Window Height Configuration
      * @details This Macro Defines the Height of the Window
      */
-    # define WINDOW_HEIGHT                          1300
+    # define WINDOW_HEIGHT                          1730
     /**
      * @def WINDOW_NAME
      * @brief Window Name Configuration
@@ -116,11 +74,17 @@
      */
     # define WINDOW_BACKGROUND                      cv::Scalar(20, 10, 0)
     /**
+     * @def WINDOWS_PADDING
+     * @brief Windows Padding Configuration
+     * @details This Macro Defines the Padding between the Windows
+     */
+    # define WINDOWS_PADDING                        50
+    /**
      * @def INFO_WINDOW_WIDTH
      * @brief Info Window Width Configuration
      * @details This Macro Defines the Width of the Info Window
      */
-    # define INFO_WINDOW_WIDTH                      WINDOW_WIDTH / 4
+    # define INFO_WINDOW_WIDTH                      WINDOW_WIDTH / 3
     /**
      * @def INFO_WINDOW_HEIGHT
      * @brief Info Window Height Configuration
@@ -193,11 +157,99 @@
      */
     # define POINT_COLOR                           cv::Scalar(170, 170, 0)
     /**
+     * @def POINT_RING_RADIUS
+     * @brief Point Ring Radius Configuration
+     * @details This Macro Defines the Radius of the Ring around the Point
+     */
+    # define POINT_RING_RADIUS                     7
+    /**
+     * @def POINT_RING_LINE_BEGIN
+     * @brief Point Ring Line Begin Configuration
+     * @details This Macro Defines the Begin Distance of the Lines around the Point
+     */
+    # define POINT_RING_LINE_BEGIN                 POINT_RING_RADIUS - 2
+    /**
+     * @def POINT_RING_LINE_SIZE
+     * @brief Point Ring Line Size Configuration
+     * @details This Macro Defines the Size of the Lines around the Point
+     */
+    # define POINT_RING_LINE_SIZE                  9
+    /**
+     * @def POINT_RING_COLOR
+     * @brief Point Ring Color Configuration
+     * @details This Macro Defines the Color of the Ring around the Point
+     * @note Color Object Must be cv::Scalar
+     * @note Format Must be BGR
+     */
+    # define POINT_RING_COLOR                      cv::Scalar(90, 209, 137)
+    /**
+     * @def POINT_RING_LINE_COLOR
+     * @brief Point Ring Line Color Configuration
+     * @details This Macro Defines the Color of the Lines around the Point
+     * @note Color Object Must be cv::Scalar
+     * @note Format Must be BGR
+     */
+    # define POINT_RING_LINE_COLOR                 cv::Scalar(76, 147, 22)
+    /**
+     * @def POINT_RING_THICKNESS
+     * @brief Point Ring Thickness Configuration
+     * @details This Macro Defines the Thickness of the Ring around the Point
+     */
+    # define POINT_RING_THICKNESS                  1
+    /**
+     * @def LINE_TICKNESS
+     * @brief Line Thickness Configuration
+     * @details This Macro Defines the Thickness of the Line
+     */
+    # define LINE_TICKNESS                         1
+    /**
+     * @def LINE_COLOR
+     * @brief Line Color Configuration
+     * @details This Macro Defines the Color of the Line
+     * @note Color Object Must be cv::Scalar
+     * @note Format Must be BGR
+     */
+    # define LINE_COLOR                            cv::Scalar(0, 255, 255)
+    /**
+     * @def LINE_WEIGHT_TEXT_SIZE
+     * @brief Line Weight Text Size Configuration
+     * @details This Macro Defines the Size of the Text for Line Weight
+     */
+    # define LINE_WEIGHT_TEXT_SIZE                 0.6
+    /**
+     * @def LINE_WEIGHT_TEXT_THICKNESS
+     * @brief Line Weight Text Thickness Configuration
+     * @details This Macro Defines the Thickness of the Text for Line Weight
+     */
+    # define LINE_WEIGHT_TEXT_THICKNESS            2
+    /**
+     * @def LINE_WEIGHT_TEXT_COLOR
+     * @brief Line Weight Text Color Configuration
+     * @details This Macro Defines the Color of the Text for Line Weight
+     * @note Color Object Must be cv::Scalar
+     * @note Format Must be BGR
+     */
+    # define LINE_WEIGHT_TEXT_COLOR                cv::Scalar(60, 0, 0)
+    /**
+     * @def LINE_WEIGHT_BACKGROUND_COLOR
+     * @brief Line Weight Background Color Configuration
+     * @details This Macro Defines the Background Color of the Text for Line Weight
+     * @note Color Object Must be cv::Scalar
+     * @note Format Must be BGR
+     */
+    # define LINE_WEIGHT_BACKGROUND_COLOR          cv::Scalar(217, 245, 177)
+    /**
+     * @def LINE_WEIGHT_BACKGROUND_PADDING
+     * @brief Line Weight Background Padding Configuration
+     * @details This Macro Defines the Padding of the Background of the Text for Line Weight
+     */
+    # define LINE_WEIGHT_BACKGROUND_PADDING        6
+    /**
      * @def SHOW_FRAME_THRESHOLD
      * @brief Show Frame Threshold Configuration
      * @details This Macro Defines the Threshold for Showing the Frame After Amount of Frame Update
      */
-    # define SHOW_FRAME_THRESHOLD                  50
+    # define SHOW_FRAME_THRESHOLD                  30
     /**
      * @enum ENUM_ALGORITHM_ENVIRONMENT
      * @brief Algorithm Environment
@@ -210,6 +262,41 @@
         ENVIRONMENT_1D,
         ENVIRONMENT_2D,
         ENVIRONMENT_3D
+    };
+    /**
+     * @enum ENUM_SHOW_POINT_METHODS
+     * @brief Show Point Methods Enum
+     * @details This Enum Defines the Method of Showing the Point
+     * @param SHOW_POINT_INFO_BOX Show Point with Info Box
+     * @param SHOW_POINT_NORMAL Show Point Normal
+     * @param SHOW_POINT_RING Show Ring around Point
+     */
+    enum ENUM_SHOW_POINT_METHODS {
+        SHOW_POINT_INFO_BOX,
+        SHOW_POINT_NORMAL,
+        SHOW_POINT_RING
+    };
+    /**
+     * @enum ENUM_SHOW_LINE_METHODS
+     * @brief Show Line Methods Enum
+     * @details This Enum Defines the Method of Showing the Line
+     * @param SHOW_LINE_NORMAL Show Line Normal
+     * @param SHOW_LINE_WEIGHTED Show Line Weighted
+     */
+    enum ENUM_SHOW_LINE_METHODS {
+        SHOW_LINE_NORMAL,
+        SHOW_LINE_WEIGHTED
+    };
+    /**
+     * @enum ENUM_SHOW_WINDOW_MODE
+     * @brief Show on Window Mode Enum
+     * @details This Enum Defines the Mode of Showing on the Window
+     * @param SHOW_ON_MAIN_WINDOW Show on Main Window
+     * @param SHOW_ON_TEMP_WINDOW Show on Temp Window
+     */
+    enum ENUM_SHOW_WINDOW_MODE {
+        SHOW_ON_MAIN_WINDOW,
+        SHOW_ON_TEMP_WINDOW
     };
     /**
      * @namespace env
@@ -709,8 +796,49 @@
              * 
              * @param point Point
              * @param add_to_points Add to Points
+             * @param show_flag Show Flag
+             * @param method Method
+             * @param window_mode Window Mode
              */
-            void drawPoint(env::Point2D point, bool add_to_points, bool show_flag);
+            void drawPoint(
+                env::Point2D point,
+                bool add_to_points,
+                bool show_flag,
+                ENUM_SHOW_POINT_METHODS show_method,
+                ENUM_SHOW_WINDOW_MODE window_method
+            );
+            /**
+             * @brief Method to Draw Line
+             * @details This Method Draws a Line on the Screen
+             * 
+             * @param point1 Point 1
+             * @param point2 Point 2
+             * @param color Color
+             * @param thickness Thickness
+             * @param add_to_lines Add to Lines
+             * @param show_flag Show Flag
+             * @param show_method Show Method
+             * @param window_method Window Method
+             * @param weight Line Weight
+             */
+            void drawLine(
+                env::Point2D point1,
+                env::Point2D point2,
+                std::string weight,
+                cv::Scalar color,
+                int thickness,
+                bool add_to_lines,
+                bool show_flag,
+                ENUM_SHOW_LINE_METHODS show_method,
+                ENUM_SHOW_WINDOW_MODE window_method
+            );
+            void drawText(
+                std::string text,
+                env::Point2D point,
+                cv::Scalar color,
+                double size,
+                int thickness
+            );
     };
     /**
      * @class EXCEPTION_GRAPHICS

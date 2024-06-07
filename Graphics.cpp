@@ -132,8 +132,8 @@
             //-- Generate Info Window Position
             // windows.info.position.x = screen.width / 2 - INFO_WINDOW_WIDTH / 2;
             // windows.info.position.y = screen.height / 2 - INFO_WINDOW_HEIGHT / 2;
-            windows.info.position.x = screen.width / 2 + WINDOW_WIDTH / 2;
-            windows.info.position.y = screen.height / 2 - WINDOW_HEIGHT / 2;
+            windows.info.position.x = screen.width / 2 + WINDOW_WIDTH / 2 + WINDOWS_PADDING;
+            windows.info.position.y = screen.height / 2 - INFO_WINDOW_HEIGHT / 2;
             //-- Move Main Window to Its Positions
             cv::moveWindow(
                 WINDOW_NAME,
@@ -273,25 +273,229 @@
      * 
      * @param point Point
      * @param add_to_points Add to Points
+     * @param show_flag Show Flag
+     * @param show_method Show Method
+     * @param window_mode Window Mode
      */
-    void Graphics::drawPoint(env::Point2D point, bool add_to_points = true, bool show_flag = false) {
-        //-- Draw Point
-        cv::circle(
-            windows.main.matrix,
-            cv::Point(point.x, point.y),
-            POINT_RADIUS,
-            point.color,
-            POINT_THICKNESS,
-            cv::LINE_4
-        );
+    void Graphics::drawPoint(
+        env::Point2D point,
+        bool add_to_points = true,
+        bool show_flag = false,
+        ENUM_SHOW_POINT_METHODS show_method = SHOW_POINT_NORMAL,
+        ENUM_SHOW_WINDOW_MODE window_mode = SHOW_ON_MAIN_WINDOW
+    ) {
+        //-- Handle Window Mode
+        cv::Mat temp;
+        if (window_mode == SHOW_ON_TEMP_WINDOW) {
+            //-- Check if Temp Window is Empty
+            if (windows.temp1.matrix.empty()) {
+                windows.temp1.matrix = windows.main.matrix;
+            }
+            temp = windows.temp1.matrix;
+        } else {
+            temp = windows.main.matrix;
+        }
+        //-- Show Normal Point
+        if (show_method == SHOW_POINT_NORMAL) {
+            cv::circle(
+                temp,
+                cv::Point(point.x, point.y),
+                POINT_RADIUS,
+                point.color,
+                POINT_THICKNESS,
+                cv::LINE_4
+            );
+        }
+        //-- Show Ring Around Point
+        if (show_method == SHOW_POINT_RING) {
+            //-- Draw Ring Around Point
+            cv::circle(
+                temp,
+                cv::Point(point.x, point.y),
+                POINT_RADIUS + POINT_RING_RADIUS,
+                POINT_RING_COLOR,
+                POINT_RING_THICKNESS,
+                cv::LINE_AA
+            );
+            //-- Draw 4 Plus Shaped Lines Around Point
+            //- First Line
+            cv::line(
+                temp,
+                cv::Point(point.x + POINT_RING_LINE_BEGIN, point.y),
+                cv::Point(point.x + POINT_RING_LINE_BEGIN + POINT_RING_LINE_SIZE, point.y),
+                POINT_RING_LINE_COLOR,
+                POINT_RING_THICKNESS,
+                cv::LINE_AA
+            );
+            //- Second Line
+            cv::line(
+                temp,
+                cv::Point(point.x - POINT_RING_LINE_BEGIN, point.y),
+                cv::Point(point.x - POINT_RING_LINE_BEGIN - POINT_RING_LINE_SIZE, point.y),
+                POINT_RING_LINE_COLOR,
+                POINT_RING_THICKNESS,
+                cv::LINE_AA
+            );
+            //- Third Line
+            cv::line(
+                temp,
+                cv::Point(point.x, point.y + POINT_RING_LINE_BEGIN),
+                cv::Point(point.x, point.y + POINT_RING_LINE_BEGIN + POINT_RING_LINE_SIZE),
+                POINT_RING_LINE_COLOR,
+                POINT_RING_THICKNESS,
+                cv::LINE_AA
+            );
+            //- Fourth Line
+            cv::line(
+                temp,
+                cv::Point(point.x, point.y - POINT_RING_LINE_BEGIN),
+                cv::Point(point.x, point.y - POINT_RING_LINE_BEGIN - POINT_RING_LINE_SIZE),
+                POINT_RING_LINE_COLOR,
+                POINT_RING_THICKNESS,
+                cv::LINE_AA
+            );
+        }
         //-- Add Point to Points
         if (add_to_points) {
             points2D.push_back(point);
         }
+        //-- Load Final Matrix from Temp
+        if (window_mode == SHOW_ON_TEMP_WINDOW) {
+            windows.temp1.matrix = temp;
+        } else {
+            windows.main.matrix = temp;
+        }
+        //-- Check Show Flag
         if(show_flag) {
-            //-- Show Main Window
-            cv::imshow(WINDOW_NAME, windows.main.matrix);
-            cv::waitKey(1);
+            if (window_mode == SHOW_ON_MAIN_WINDOW) {
+                //-- Show Main Window
+                cv::imshow(WINDOW_NAME, windows.main.matrix);
+                cv::waitKey(1);
+            } else if (window_mode == SHOW_ON_TEMP_WINDOW) {
+                //-- Copy Main Window to Temp Window if Temp Window is Empty
+                if (windows.temp1.matrix.empty()) {
+                    windows.main.matrix.copyTo(windows.temp1.matrix);
+                }
+                //-- Show Temp Window
+                cv::imshow(WINDOW_NAME, windows.temp1.matrix);
+                cv::waitKey(1);
+            }
+        }
+    }
+    /**
+     * @brief Method to Draw Line
+     * @details This Method Draws a Line on the Screen
+     * 
+     * @param point1 Point 1
+     * @param point2 Point 2
+     * @param color Color
+     * @param thickness Thickness
+     * @param add_to_lines Add to Lines
+     * @param show_flag Show Flag
+     * @param show_method Show Method
+     * @param window_mode Window Mode
+     * @param weight Line Weight
+     */
+    void Graphics::drawLine(
+        env::Point2D point1,
+        env::Point2D point2,
+        std::string weight = 0,
+        cv::Scalar color = LINE_COLOR,
+        int thickness = LINE_TICKNESS,
+        bool add_to_lines = false,
+        bool show_flag = true,
+        ENUM_SHOW_LINE_METHODS show_method = SHOW_LINE_NORMAL,
+        ENUM_SHOW_WINDOW_MODE window_mode = SHOW_ON_MAIN_WINDOW
+    ) {
+        //-- Handle Window Mode
+        cv::Mat temp;
+        if (window_mode == SHOW_ON_TEMP_WINDOW) {
+            //-- Check if Temp Window is Empty
+            if (windows.temp1.matrix.empty()) {
+                windows.temp1.matrix = windows.main.matrix;
+            }
+            temp = windows.temp1.matrix;
+        } else {
+            temp = windows.main.matrix;
+        }
+        cv::line(
+            temp,
+            cv::Point(point1.x, point1.y),
+            cv::Point(point2.x, point2.y),
+            color,
+            thickness,
+            cv::LINE_4
+        );
+        //-- Show Line Weights
+        if (show_method == SHOW_LINE_WEIGHTED) {
+            //-- Calculate Mid Point
+            env::Point2D mid_point(
+                (point1.x + point2.x) / 2,
+                (point1.y + point2.y) / 2,
+                0,
+                color
+            );
+            //-- Initialize Weight Text (Features May Be Added in Future)
+            std::string weight_text = weight;
+            //-- Get Text Size
+            cv::Size text_size = cv::getTextSize(
+                weight_text,
+                cv::FONT_HERSHEY_SIMPLEX,
+                LINE_WEIGHT_TEXT_SIZE,
+                LINE_WEIGHT_TEXT_THICKNESS,
+                0
+            );
+            //-- Calculate Text Position
+            cv::Point text_position(
+                mid_point.x - text_size.width / 2 + 1,
+                mid_point.y + text_size.height / 2
+            );
+            //-- Draw Background Circle in Size of Text
+            cv::circle(
+                temp,
+                cv::Point(mid_point.x, mid_point.y),
+                text_size.width / 2 + LINE_WEIGHT_BACKGROUND_PADDING,
+                LINE_WEIGHT_BACKGROUND_COLOR,
+                -1
+            );
+            //-- Draw Text
+            cv::putText(
+                temp,
+                weight_text,
+                text_position,
+                cv::FONT_HERSHEY_SIMPLEX,
+                LINE_WEIGHT_TEXT_SIZE,
+                LINE_WEIGHT_TEXT_COLOR,
+                LINE_WEIGHT_TEXT_THICKNESS
+            );
+        }
+        //-- Add Line to Lines
+        if (add_to_lines) {
+            //-- Not Implemented Yet
+            std::cout << ERROR "Add to Lines Not Implemented Yet !" << std::endl;
+            // lines2D.push_back(env::Line2D(point1, point2, color, thickness));
+        }
+        //-- Load Final Matrix from Temp
+        if (window_mode == SHOW_ON_TEMP_WINDOW) {
+            windows.temp1.matrix = temp;
+        } else {
+            windows.main.matrix = temp;
+        }
+        //-- Check Show Flag
+        if(show_flag) {
+            if (window_mode == SHOW_ON_MAIN_WINDOW) {
+                //-- Show Main Window
+                cv::imshow(WINDOW_NAME, windows.main.matrix);
+                cv::waitKey(1);
+            } else if (window_mode == SHOW_ON_TEMP_WINDOW) {
+                //-- Copy Main Window to Temp Window if Temp Window is Empty
+                if (windows.temp1.matrix.empty()) {
+                    windows.main.matrix.copyTo(windows.temp1.matrix);
+                }
+                //-- Show Temp Window
+                cv::imshow(WINDOW_NAME, windows.temp1.matrix);
+                cv::waitKey(1);
+            }
         }
     }
 # endif // GRAPHICS_OMID_SOJOODI
