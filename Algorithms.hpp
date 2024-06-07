@@ -1,6 +1,5 @@
 //-- Check RKACPB Project Builder
 # ifndef RKACPB
-    # define RKACPB 1
     # pragma message \
         "This Project is Part of 40021441054102 Projects. You are Using It as a Standalone Project"
     # pragma message \
@@ -18,21 +17,123 @@
      * @author Ramtin Kosari (ramtinkosari@gmail.com)
      * @brief Algorithms Header File
      * @date 2024-03-21
+     * @def ALGORITHMS_OMID_SOJOODI
+     * @brief Algorithms Header File Macro
+     * @details This Header File Contains All Needed Definitions and Classes for Algorithms
      */
     # define ALGORITHMS_OMID_SOJOODI
-    //-- Data Generation Methods Enum
+    /**
+     * @enum ENUM_ALGORITHM_ENVIRONMENT
+     * @brief Data Generation Methods
+     * @details This Enum Contains All Supported Data Generation Methods for Algorithms Class
+     * 
+     * @param USE_RANDOM_DATA Use Random Data, Generates Random Data for Algorithms
+     * @param USE_INPUT_FILE Use Input File, Loads Data from Input File for Algorithms
+     */
     enum ENUM_ALGORITHMS_DATA_METHOD {
         USE_RANDOM_DATA,
         USE_INPUT_FILE,
     };
-    //-- Maximum Amount of Random Data
-    # define MAX_RANDOM_DATA 1000
-    //-- Algorithms Processing Methods
+    /**
+     * @enum ENUM_RANDOM_DATA_SHAPES
+     * @brief Random Data Shapes
+     * @details This Enum Contains All Supported Random Data Shapes for Algorithms Class
+     * 
+     * @param RANDOM_DATA_SHAPE_LEMNISCATE_OF_BERNOULLI Generates Random Data in Lemniscate of Bernoulli Shape
+     * @param RANDOM_DATA_SHAPE_LISSAJOUS_CURVE Generates Random Data in Lissajous Curve Shape
+     * @param RANDOM_DATA_SHAPE_HYPOTROCHOID Generates Random Data in Hypotrochoid Shape
+     * @param RANDOM_DATA_SHAPE_SPIRAL_ROAD Generates Random Data in Spiral Road Shape
+     * @param RANDOM_DATA_SHAPE_NAUTILUS Generates Random Data in Nautilus Shape
+     * @param RANDOM_DATA_SHAPE_ASTROID Generates Random Data in Astroid Shape
+     * @param RANDOM_DATA_SHAPE_DELTOID Generates Random Data in Deltoid Shape
+     * @param RANDOM_DATA_SHAPE_CLUSTER Generates Random Data in Cluster Shape
+     * @param RANDOM_DATA_SHAPE_ELLIPSE Generates Random Data in Ellipse Shape
+     * @param RANDOM_DATA_SHAPE_SATURN Generates Random Data in Saturn Planet Shape
+     * @param RANDOM_DATA_SHAPE_ROSE_8 Generates Random Data in Rose 8 Petal Shape
+     * @param RANDOM_DATA_SHAPE_ROSE_5 Generates Random Data in Rose 5 Petal Shape
+     * @param RANDOM_DATA_SHAPE_ROSE_4 Generates Random Data in Rose 4 Petal Shape
+     * @param RANDOM_DATA_SHAPE_ROSE_3 Generates Random Data in Rose 3 Petal Shape
+     * @param RANDOM_DATA_SHAPE_STAR_1 Generates Random Data in Star Model 1 Shape
+     * @param RANDOM_DATA_SHAPE_STAR_2 Generates Random Data in Star Model 2 Shape
+     * @param RANDOM_DATA_SHAPE_SPIRAL Generates Random Data in Spiral Shape
+     * @param RANDOM_DATA_SHAPE_LINE Generates Random Data in Line Shape
+     * @param RANDOM_DATA_SHAPE_qb Generates Random Data in qb Shape
+     */
+    enum ENUM_RANDOM_DATA_SHAPES {
+        RANDOM_DATA_SHAPE_LEMNISCATE_OF_BERNOULLI,
+        RANDOM_DATA_SHAPE_LISSAJOUS_CURVE,
+        RANDOM_DATA_SHAPE_HYPOTROCHOID,
+        RANDOM_DATA_SHAPE_SPIRAL_ROAD,
+        RANDOM_DATA_SHAPE_NAUTILUS,
+        RANDOM_DATA_SHAPE_ASTROID,
+        RANDOM_DATA_SHAPE_DELTOID,
+        RANDOM_DATA_SHAPE_CLUSTER,
+        RANDOM_DATA_SHAPE_ELLIPSE,
+        RANDOM_DATA_SHAPE_SATURN,
+        RANDOM_DATA_SHAPE_ROSE_8,
+        RANDOM_DATA_SHAPE_ROSE_5,
+        RANDOM_DATA_SHAPE_ROSE_4,
+        RANDOM_DATA_SHAPE_ROSE_3,
+        RANDOM_DATA_SHAPE_STAR_1,
+        RANDOM_DATA_SHAPE_STAR_2,
+        RANDOM_DATA_SHAPE_SPIRAL,
+        RANDOM_DATA_SHAPE_LINE,
+        RANDOM_DATA_SHAPE_qb
+    };
+    /**
+     * @def MAX_RANDOM_DATA
+     * @brief Maximum Amount of Random Data
+     * @details This Macro Defines Maximum Amount of Random Data to Generate Input Elements for Algorithms
+     * 
+     * @warning Maximum Random Data Value is Set According to the Algorithm's Needs and Note that Higher Values May Cause Memory Issues and Performance Degradation
+     */
+    # define MAX_RANDOM_DATA 3773
+    /**
+     * @enum ENUM_ALGORIHTMS_PROCESSING_METHODS
+     * @brief Algorithms Processing Methods
+     * @details This Enum Contains All Supported Processing Methods for Algorithms Class
+     * 
+     * @param USE_SINGLE_THREAD Use Single Thread, Processes Algorithms with Single Thread
+     * @param USE_MULTI_THREADS Use Multi Threads, Processes Algorithms with Multi Threads
+     */
     enum ENUM_ALGORIHTMS_PROCESSING_METHODS {
         USE_SINGLE_THREAD,
         USE_MULTI_THREADS
     };
-    //-- Supported Algorithms
+    /**
+     * @enum ENUM_SUPPORTED_ALGORITHMS
+     * @brief Supported Algorithms
+     * @details This Enum Contains All Supported Algorithms for Algorithms Class
+     * 
+     * @note Each Algorithm Has Its Own Data and Processing Method, So You Must Define Them Before Using the Algorithm
+     * 
+     * @param ALGORITHM_SEARCH_BINARY Binary Search Algorithm
+     * @param ALGORITHM_SORT_INSERTION Insertion Sort Algorithm
+     * @param ALGORITHM_SORT_SELECTION Selection Sort Algorithm
+     * @param ALGORITHM_SORT_BUBBLE Bubble Sort Algorithm
+     * @param ALGORITHM_SORT_QUICK Quick Sort Algorithm
+     * @param ALGORITHM_SORT_MERGE Merge Sort Algorithm
+     * @param ALGORITHM_SORT_HEAP Heap Sort Algorithm
+     * @param ALGORITHM_MIN_MAX_ARRAY Min Max Array Algorithm
+     * @param ALGORITHM_LARGE_NUMBERS_MULTIPLICATION Large Numbers Multiplication Algorithm
+     * @param ALGORITHM_MATRIX_MULTIPLICATION_STRASSEN Strassen Matrix Multiplication Algorithm
+     * @param ALGORITHM_MATRIX_MULTIPLICATION_SIMPLE Simple Matrix Multiplication Algorithm
+     * @param ALGORITHM_MATRIX_MULTIPLICATION_BLOCK Block Matrix Multiplication Algorithm
+     * @param ALGORITHM_MATRIX_CHAIN_MULTIPLICATION Matrix Chain Multiplication Algorithm
+     * @param ALGORITHM_DIJKSTRA Dijkstra Algorithm
+     * @param ALGORITHM_FLOYD Floyd Algorithm
+     * @param ALGORITHM_KNAPSACK_0_1 0/1 Knapsack Algorithm
+     * @param ALGORITHM_KNAPSACK_FRACTIONAL Fractional Knapsack Algorithm
+     * @param ALGORITHM_KNAPSACK_BRANCH_BOUNDED Branch and Bounded Knapsack Algorithm
+     * @param ALGORITHM_TRAVELLER_SALESMAN Traveller Salesman Algorithm
+     * @param ALGORITHM_MOVING_ON_GRID Moving on Grid Algorithm
+     * @param ALGORITHM_N_QUEENS N Queens Algorithm
+     * @param ALGORITHM_BFS Breadth First Search Algorithm
+     * @param ALGORITHM_DFS Depth First Search Algorithm
+     * @param ALGORITHM_HUFFMAN_CODING Huffman Coding Algorithm
+     * @param ALGORITHM_MINIMUM_SPANNING_TREE_PRIM Minimum Spanning Tree Prim Algorithm
+     * @param ALGORITHM_MINIMUM_SPANNING_TREE_KRUSKAL Minimum Spanning Tree Kruskal Algorithm
+     */
     enum ENUM_SUPPORTED_ALGORITHMS {
         ALGORITHM_SEARCH_BINARY,
         ALGORITHM_SORT_INSERTION,
@@ -70,54 +171,129 @@
     # include <chrono>
     # include <vector>
     # include <random>
-    //-- Define Log Messages
-    # define WARNING "\033[38;2;255;255;0m[WARNING]\033[0m "
-    # define SUCCESS "\033[38;2;0;255;0m[SUCCESS]\033[0m "
-    # define ERROR "\033[38;2;255;0;0m[ERROR]\033[0m "
-    # define INFO "\033[38;2;0;255;255m[INFO]\033[0m "
-    # define LOG "\033[38;2;170;170;170m[LOG]\033[0m "
-    # define RESET "\033[0m"
-    # define TAB "   "
-    //-- Class Definition
+    /**
+     * @class Algorithms
+     * @brief Algorithms Class
+     * @details This Class Contains All Needed Definitions and Methods for Algorithms
+     * 
+     * @param algorithm_duration Process Time of Algorithm
+     * @param begin_time Begin Time of Algorithm
+     * @param end_time End Time of Algorithm
+     * @param data Data Vector
+     * 
+     * @see ENUM_ALGORIHTMS_PROCESSING_METHODS      (\ref Algorithms.hpp "Algorithm" Processing Methods)
+     * @see ENUM_ALGORITHMS_DATA_METHOD             (\ref Algorithms.hpp "Algorithm" Data Generation Methods)
+     * @see ENUM_ALGORITHM_ENVIRONMENT              (\ref Graphics.hpp "Graphics" Environment)
+     * @see ENUM_SUPPORTED_ALGORITHMS               (\ref Algorithms.hpp "Algorithm" Supported by the Class)
+     * @see MAX_RANDOM_DATA                         (Maximum Random Data Value)
+     * @see Algorithms.hpp
+     */
     class Algorithms {
         private:
-            //-- Begin Time of Algorithm
+            /**
+             * @brief Represents the Starting Time Point.
+             * @details The Variable is Initialized in the Constructor and Used to Calculate the Processing Time of the Algorithm.
+             */
             std::chrono::high_resolution_clock::time_point begin_time;
-            //-- End Time of Algorithm
+            /**
+             * @brief Represents the Ending Time Point.
+             * @details The Variable is Initialized in the Destructor and Used to Calculate the Processing Time of the Algorithm.
+             */
             std::chrono::high_resolution_clock::time_point end_time;
-            //-- Process Time of Algorithm
+            /**
+             * @brief Represents the Duration of the Algorithm.
+             * @details The Variable is Calculated in the Destructor and Used to Show the Processing Time of the Algorithm.
+             */
             std::chrono::duration<double> algorithm_duration;
-            //-- Data Vector
+            /**
+             * @brief Represents the Data Vector.
+             * @details The Variable is Used to Store the Input Data for the Algorithm.
+             */
             std::vector<int> data;
         public:
-            //-- Constructor
+            /**
+             * @brief Algorithms Constructor
+             * @details This Constructor Initializes the Algorithm with the Given Parameters.
+             * 
+             * @param algorithm The Algorithm to Use
+             * @param environment The Environment to Use
+             * @param dataMethod The Data Method to Use
+             * @param processingMethod The Processing Method to Use
+             * 
+             * @see ENUM_SUPPORTED_ALGORITHMS               (\ref Algorithms.hpp "Algorithm" Supported by the Class)
+             * @see ENUM_ALGORITHM_ENVIRONMENT              (\ref Graphics.hpp "Graphics" Environment)
+             * @see ENUM_ALGORITHMS_DATA_METHOD             (\ref Algorithms.hpp "Algorithm" Data Generation Methods)
+             * @see ENUM_ALGORIHTMS_PROCESSING_METHODS      (\ref Algorithms.hpp "Algorithm" Processing Methods)
+             * 
+             * @param algorithm 
+             * @param environment 
+             * @param data_method 
+             * @param processing_method 
+             */
             Algorithms(
                 ENUM_SUPPORTED_ALGORITHMS algorithm,
                 ENUM_ALGORITHM_ENVIRONMENT environment,
                 ENUM_ALGORITHMS_DATA_METHOD data_method,
                 ENUM_ALGORIHTMS_PROCESSING_METHODS processing_method
             );
-            //-- Destructor
+            /**
+             * @brief Algorithms Destructor
+             * @details This Destructor Finalizes the Algorithm and Shows the Processing Time.
+             */
             ~Algorithms();
-            //-- Method to Generate Random 3D Data
+            /**
+             * @brief Generate Random 3D Environment Data
+             * @details This Method Generates Random 3D Environment Data for the Algorithm.
+             * 
+             * @param amount The Amount of Data to Generate
+             * @param min The Minimum Value of Data
+             * @param max The Maximum Value of Data
+             * 
+             * @see ENUM_ALGORITHM_ENVIRONMENT              (\ref Graphics.hpp "Graphics" Environment)
+             */
             void generateRandom3DData(
                 int amount,
                 int min,
                 int max
             );
-            //-- Method to Generate Random 2D Data
+            /**
+             * @brief Generate Random 2D Environment Data
+             * @details This Method Generates Random 2D Environment Data for the Algorithm.
+             * 
+             * @param amount The Amount of Data to Generate
+             * @param min The Minimum Value of Data
+             * @param max The Maximum Value of Data
+             * 
+             * @see ENUM_ALGORITHM_ENVIRONMENT              (\ref Graphics.hpp "Graphics" Environment)
+             */
             void generateRandom2DData(
                 int amount,
                 int min,
                 int max
             );
-            //-- Method to Generate Random Data
+            /**
+             * @brief Generate Random Data
+             * @details This Method Generates Random Data for the Algorithm.
+             * 
+             * @param amount The Amount of Data to Generate
+             * @param min The Minimum Value of Data
+             * @param max The Maximum Value of Data
+             */
             void generateRandomData(
                 int amount,
                 int min,
-                int max
+                int max,
+                ENUM_ALGORITHM_ENVIRONMENT environment = ENVIRONMENT_2D,
+                ENUM_RANDOM_DATA_SHAPES shape = RANDOM_DATA_SHAPE_ELLIPSE
             );
-            //-- Method to Load Data from File
+            /**
+             * @brief Load Data from File
+             * @details This Method Loads Data from File for the Algorithm.
+             * 
+             * @param file_name The File Name to Load Data from
+             * 
+             * @see ENUM_ALGORITHM_ENVIRONMENT              (\ref Graphics.hpp "Graphics" Environment)
+             */
             void loadDataFromFile(
                 std::string file_name
             );
