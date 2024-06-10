@@ -167,7 +167,7 @@
         //-- Initialize Mouse State
         mouseState = ENUM_MOUSE_STATE::EVENTS_ACTIVE;
         //-- Initialize Mouse Callback on Main Window
-        cv::setMouseCallback(WINDOW_NAME, onMouseCallback, this);
+        // cv::setMouseCallback(WINDOW_NAME, onMouseCallback, this);
         //-- Initialize Mouse Callback on Info Window
         cv::setMouseCallback(INFO_WINDOW_NAME, onMouseCallback, this);
         //-- Finish Initialization
@@ -264,7 +264,215 @@
         int         flags
     ) {
         if (event == cv::EVENT_MOUSEMOVE) {
-            std::cout << LOG "Mouse Moved to (" << x << ", " << y << ")" << std::endl;
+            std::cout << INFO "Mouse Moved to (" << x << ", " << y << ")" << std::endl;
+            // cv::Mat temp;
+            // windows.main.matrix.copyTo(temp);
+            // //-- Define L Points
+            // cv::Point l1, l2, l3, l4;
+            // //-- Calculate Info Box Position According to Point Position in All 4 Areas
+            // if (x < WINDOW_WIDTH / 2 && y <= WINDOW_HEIGHT / 2) {
+            //     // std::cout << INFO "Point is in 1 Area" << std::endl;
+            //     //-- Calculate Line 1 Start Point
+            //     l1 = cv::Point(
+            //         x + POINT_INFO_BOX_CIRCLE_RADIUS,
+            //         y + POINT_INFO_BOX_CIRCLE_RADIUS
+            //     );
+            //     //-- Calculate Line 1 End and Line 2 Start Point
+            //     l2 = cv::Point(
+            //         x + POINT_INFO_BOX_CIRCLE_RADIUS + POINT_INFO_BOX_LINE_1_SIZE * cos(
+            //             POINT_INFO_BOX_LINE_1_ANGLE * CV_PI / 180
+            //         ),
+            //         y + POINT_INFO_BOX_CIRCLE_RADIUS + POINT_INFO_BOX_LINE_1_SIZE * sin(
+            //             POINT_INFO_BOX_LINE_1_ANGLE * CV_PI / 180
+            //         )
+            //     );
+            //     //-- Calculate Line 2 End Point
+            //     l3 = cv::Point(
+            //         l2.x + POINT_INFO_BOX_LINE_2_SIZE,
+            //         l2.y
+            //     );
+            //     //-- Calculate Line 3 End Point
+            //     l4 = cv::Point(
+            //         l3.x + POINT_INFO_BOX_WIDTH,
+            //         l3.y + POINT_INFO_BOX_HEIGHT
+            //     );
+            // } else if (x >= WINDOW_WIDTH / 2 && y <= WINDOW_HEIGHT / 2) {
+            //     // std::cout << INFO "Point is in 2 Area" << std::endl;
+            //     //-- Calculate Line 1 Start Point
+            //     l1 = cv::Point(
+            //         x - POINT_INFO_BOX_CIRCLE_RADIUS,
+            //         y + POINT_INFO_BOX_CIRCLE_RADIUS
+            //     );
+            //     //-- Calculate Line 1 End and Line 2 Start Point
+            //     l2 = cv::Point(
+            //         x - POINT_INFO_BOX_CIRCLE_RADIUS - POINT_INFO_BOX_LINE_1_SIZE * cos(
+            //             POINT_INFO_BOX_LINE_1_ANGLE * CV_PI / 180
+            //         ),
+            //         y + POINT_INFO_BOX_CIRCLE_RADIUS + POINT_INFO_BOX_LINE_1_SIZE * sin(
+            //             POINT_INFO_BOX_LINE_1_ANGLE * CV_PI / 180
+            //         )
+            //     );
+            //     //-- Calculate Line 2 End Point
+            //     l3 = cv::Point(
+            //         l2.x - POINT_INFO_BOX_LINE_2_SIZE,
+            //         l2.y
+            //     );
+            //     //-- Calculate Line 3 End Point
+            //     l4 = cv::Point(
+            //         l3.x - POINT_INFO_BOX_WIDTH,
+            //         l3.y + POINT_INFO_BOX_HEIGHT
+            //     );
+            // } else if (x < WINDOW_WIDTH / 2 && y > WINDOW_HEIGHT / 2) {
+            //     // std::cout << INFO "Point is in 3 Area" << std::endl;
+            //     //-- Calculate Line 1 Start Point
+            //     l1 = cv::Point(
+            //         x + POINT_INFO_BOX_CIRCLE_RADIUS,
+            //         y - POINT_INFO_BOX_CIRCLE_RADIUS
+            //     );
+            //     //-- Calculate Line 1 End and Line 2 Start Point
+            //     l2 = cv::Point(
+            //         x + POINT_INFO_BOX_CIRCLE_RADIUS + POINT_INFO_BOX_LINE_1_SIZE * cos(
+            //             POINT_INFO_BOX_LINE_1_ANGLE * CV_PI / 180
+            //         ),
+            //         y - POINT_INFO_BOX_CIRCLE_RADIUS - POINT_INFO_BOX_LINE_1_SIZE * sin(
+            //             POINT_INFO_BOX_LINE_1_ANGLE * CV_PI / 180
+            //         )
+            //     );
+            //     //-- Calculate Line 2 End Point
+            //     l3 = cv::Point(
+            //         l2.x + POINT_INFO_BOX_LINE_2_SIZE,
+            //         l2.y
+            //     );
+            //     //-- Calculate Line 3 End Point
+            //     l4 = cv::Point(
+            //         l3.x + POINT_INFO_BOX_WIDTH,
+            //         l3.y - POINT_INFO_BOX_HEIGHT
+            //     );
+            // } else if (x >= WINDOW_WIDTH / 2 && y > WINDOW_HEIGHT / 2) {
+            //     // std::cout << INFO "Point is in 4 Area" << std::endl;
+            //     //-- Calculate Line 1 Start Point
+            //     l1 = cv::Point(
+            //         x - POINT_INFO_BOX_CIRCLE_RADIUS,
+            //         y - POINT_INFO_BOX_CIRCLE_RADIUS
+            //     );
+            //     //-- Calculate Line 1 End and Line 2 Start Point
+            //     l2 = cv::Point(
+            //         x - POINT_INFO_BOX_CIRCLE_RADIUS - POINT_INFO_BOX_LINE_1_SIZE * cos(
+            //             POINT_INFO_BOX_LINE_1_ANGLE * CV_PI / 180
+            //         ),
+            //         y - POINT_INFO_BOX_CIRCLE_RADIUS - POINT_INFO_BOX_LINE_1_SIZE * sin(
+            //             POINT_INFO_BOX_LINE_1_ANGLE * CV_PI / 180
+            //         )
+            //     );
+            //     //-- Calculate Line 2 End Point
+            //     l3 = cv::Point(
+            //         l2.x - POINT_INFO_BOX_LINE_2_SIZE,
+            //         l2.y
+            //     );
+            //     //-- Calculate Line 3 End Point
+            //     l4 = cv::Point(
+            //         l3.x - POINT_INFO_BOX_WIDTH,
+            //         l3.y - POINT_INFO_BOX_HEIGHT
+            //     );
+            // }
+            // //-- Draw Ring
+            // cv::circle(
+            //     temp,
+            //     cv::Point(x, y),
+            //     POINT_INFO_BOX_CIRCLE_RADIUS,
+            //     POINT_RING_COLOR,
+            //     POINT_RING_THICKNESS,
+            //     cv::LINE_AA
+            // );
+            // //-- Draw Line 1
+            // cv::line(
+            //     temp,
+            //     l1,
+            //     l2,
+            //     POINT_INFO_BOX_LINE_1_COLOR,
+            //     POINT_INFO_BOX_LINE_1_THICKNESS,
+            //     cv::LINE_AA
+            // );
+            // //-- Draw Line 2
+            // cv::line(
+            //     temp,
+            //     l2,
+            //     l3,
+            //     POINT_INFO_BOX_LINE_2_COLOR,
+            //     POINT_INFO_BOX_LINE_2_THICKNESS,
+            //     cv::LINE_AA
+            // );
+            // //-- Draw Info Box
+            // cv::rectangle(
+            //     temp,
+            //     l3,
+            //     l4,
+            //     POINT_INFO_BOX_COLOR,
+            //     -1
+            // );
+            // //-- Draw Info Box Border
+            // cv::rectangle(
+            //     temp,
+            //     l3,
+            //     l4,
+            //     POINT_INFO_BOX_LINE_2_COLOR,
+            //     POINT_INFO_BOX_LINE_2_THICKNESS
+            // );
+            // //-- Calculate Text Position
+            // cv::Point text_position(
+            //     l3.x + POINT_INFO_BOX_TEXT_PADDING,
+            //     l3.y + POINT_INFO_BOX_TEXT_PADDING + 9
+            // );
+            // if (x < WINDOW_WIDTH / 2 && y <= WINDOW_HEIGHT / 2) { //-- Area 1
+            //     //-- Do Nothing
+            // } else if (x >= WINDOW_WIDTH / 2 && y <= WINDOW_HEIGHT / 2) { //-- Area 2
+            //     text_position.x -= POINT_INFO_BOX_WIDTH;
+            // } else if (x < WINDOW_WIDTH / 2 && y > WINDOW_HEIGHT / 2) { //-- Area 3
+            //     text_position.y -= POINT_INFO_BOX_HEIGHT;
+            // } else if (x >= WINDOW_WIDTH / 2 && y > WINDOW_HEIGHT / 2) { //-- Area 4
+            //     text_position.x -= POINT_INFO_BOX_WIDTH;
+            //     text_position.y -= POINT_INFO_BOX_HEIGHT;
+            // }
+            // std::string info = "None";
+            // //-- Handle Info Box Text
+            // if (info == "None") {
+            //     //-- Show X
+            //     cv::putText(
+            //         temp,
+            //         "X: " + std::to_string(x),
+            //         text_position,
+            //         cv::FONT_HERSHEY_SIMPLEX,
+            //         POINT_INFO_BOX_TEXT_SIZE,
+            //         POINT_INFO_BOX_TEXT_COLOR,
+            //         POINT_INFO_BOX_TEXT_THICKNESS
+            //     );
+            //     //-- Show Y
+            //     cv::putText(
+            //         temp,
+            //         "Y: " + std::to_string(y),
+            //         cv::Point(
+            //             text_position.x,
+            //             text_position.y + POINT_INFO_BOX_TEXT_SIZE + POINT_INFO_BOX_NEXT_LINE
+            //         ),
+            //         cv::FONT_HERSHEY_SIMPLEX,
+            //         POINT_INFO_BOX_TEXT_SIZE,
+            //         POINT_INFO_BOX_TEXT_COLOR,
+            //         POINT_INFO_BOX_TEXT_THICKNESS
+            //     );
+            // } else {
+            //     //-- Draw Text
+            //     cv::putText(
+            //         temp,
+            //         info,
+            //         text_position,
+            //         cv::FONT_HERSHEY_SIMPLEX,
+            //         POINT_INFO_BOX_TEXT_SIZE,
+            //         POINT_INFO_BOX_TEXT_COLOR,
+            //         POINT_INFO_BOX_TEXT_THICKNESS
+            //     );
+            // }
+            // //-- Show Window
+            // cv::imshow(WINDOW_NAME, temp);
         }
     }
     /**
@@ -282,18 +490,36 @@
         bool add_to_points = true,
         bool show_flag = false,
         ENUM_SHOW_POINT_METHODS show_method = SHOW_POINT_NORMAL,
-        ENUM_SHOW_WINDOW_MODE window_mode = SHOW_ON_MAIN_WINDOW
+        ENUM_SHOW_WINDOW_MODE window_mode = SHOW_ON_MAIN_WINDOW,
+        std::string info = "None"
     ) {
-        //-- Handle Window Mode
+        //-- Define Temp Matrix
         cv::Mat temp;
+        //-- Handle Window Mode
         if (window_mode == SHOW_ON_TEMP_WINDOW) {
             //-- Check if Temp Window is Empty
             if (windows.temp1.matrix.empty()) {
-                windows.temp1.matrix = windows.main.matrix;
+                windows.main.matrix.copyTo(windows.temp1.matrix);
             }
-            temp = windows.temp1.matrix;
+            windows.temp1.matrix.copyTo(temp);
+        } else if (window_mode == SHOW_ON_TEMP_WINDOW_RESET) {
+            //-- Check if Temp Window is Empty
+            if (windows.temp2.matrix.empty()) {
+                //-- Check if Temp1 is Empty
+                if (windows.temp1.matrix.empty()) {
+                    windows.main.matrix.copyTo(windows.temp1.matrix);
+                }
+                windows.temp1.matrix.copyTo(windows.temp2.matrix);
+            }
+            //-- Check if Temp1 is Empty
+            if (windows.temp1.matrix.empty()) {
+                windows.main.matrix.copyTo(windows.temp1.matrix);
+            }
+            windows.temp1.matrix.copyTo(windows.temp2.matrix);
+            windows.temp2.matrix.copyTo(temp);
         } else {
             temp = windows.main.matrix;
+            // windows.main.matrix.copyTo(temp);
         }
         //-- Show Normal Point
         if (show_method == SHOW_POINT_NORMAL) {
@@ -354,6 +580,215 @@
                 POINT_RING_THICKNESS,
                 cv::LINE_AA
             );
+        } else if (show_method == SHOW_POINT_INFO_BOX) {
+            //-- Define L Points
+            cv::Point l1, l2, l3, l4;
+            //-- Calculate Info Box Position According to Point Position in All 4 Areas
+            if (point.x < WINDOW_WIDTH / 2 && point.y <= WINDOW_HEIGHT / 2) { //-- Area 1
+                //-- Calculate Line 1 Start Point
+                l1 = cv::Point(
+                    point.x + POINT_INFO_BOX_CIRCLE_RADIUS,
+                    point.y + POINT_INFO_BOX_CIRCLE_RADIUS
+                );
+                //-- Calculate Line 1 End and Line 2 Start Point
+                l2 = cv::Point(
+                    point.x + POINT_INFO_BOX_CIRCLE_RADIUS + POINT_INFO_BOX_LINE_1_SIZE * cos(
+                        POINT_INFO_BOX_LINE_1_ANGLE * CV_PI / 180
+                    ),
+                    point.y + POINT_INFO_BOX_CIRCLE_RADIUS + POINT_INFO_BOX_LINE_1_SIZE * sin(
+                        POINT_INFO_BOX_LINE_1_ANGLE * CV_PI / 180
+                    )
+                );
+                //-- Calculate Line 2 End and Line 3 Start Point
+                l3 = cv::Point(
+                    l2.x + POINT_INFO_BOX_LINE_2_SIZE,
+                    l2.y
+                );
+                //-- Calculate Line 3 End
+                l4 = cv::Point(
+                    l3.x + POINT_INFO_BOX_WIDTH,
+                    l3.y + POINT_INFO_BOX_HEIGHT
+                );
+            } else if (point.x >= WINDOW_WIDTH / 2 && point.y <= WINDOW_HEIGHT / 2) { //-- Area 2
+                //-- Calculate Line 1 Start Point
+                l1 = cv::Point(
+                    point.x - POINT_INFO_BOX_CIRCLE_RADIUS,
+                    point.y + POINT_INFO_BOX_CIRCLE_RADIUS
+                );
+                //-- Calculate Line 1 End and Line 2 Start Point
+                l2 = cv::Point(
+                    point.x - POINT_INFO_BOX_CIRCLE_RADIUS - POINT_INFO_BOX_LINE_1_SIZE * cos(
+                        POINT_INFO_BOX_LINE_1_ANGLE * CV_PI / 180
+                    ),
+                    point.y + POINT_INFO_BOX_CIRCLE_RADIUS + POINT_INFO_BOX_LINE_1_SIZE * sin(
+                        POINT_INFO_BOX_LINE_1_ANGLE * CV_PI / 180
+                    )
+                );
+                //-- Calculate Line 2 End Point
+                l3 = cv::Point(
+                    l2.x - POINT_INFO_BOX_LINE_2_SIZE,
+                    l2.y
+                );
+                //-- Calculate Line 3 End
+                l4 = cv::Point(
+                    l3.x - POINT_INFO_BOX_WIDTH,
+                    l3.y + POINT_INFO_BOX_HEIGHT
+                );
+            } else if (point.x < WINDOW_WIDTH / 2 && point.y > WINDOW_HEIGHT / 2) { //-- Area 3
+                //-- Calculate Line 1 Start Point
+                l1 = cv::Point(
+                    point.x + POINT_INFO_BOX_CIRCLE_RADIUS,
+                    point.y - POINT_INFO_BOX_CIRCLE_RADIUS
+                );
+                //-- Calculate Line 1 End and Line 2 Start Point
+                l2 = cv::Point(
+                    point.x + POINT_INFO_BOX_CIRCLE_RADIUS + POINT_INFO_BOX_LINE_1_SIZE * cos(
+                        POINT_INFO_BOX_LINE_1_ANGLE * CV_PI / 180
+                    ),
+                    point.y - POINT_INFO_BOX_CIRCLE_RADIUS - POINT_INFO_BOX_LINE_1_SIZE * sin(
+                        POINT_INFO_BOX_LINE_1_ANGLE * CV_PI / 180
+                    )
+                );
+                //-- Calculate Line 2 End Point
+                l3 = cv::Point(
+                    l2.x + POINT_INFO_BOX_LINE_2_SIZE,
+                    l2.y
+                );
+                //-- Calculate Line 3 End
+                l4 = cv::Point(
+                    l3.x + POINT_INFO_BOX_WIDTH,
+                    l3.y - POINT_INFO_BOX_HEIGHT
+                );
+            } else if (point.x >= WINDOW_WIDTH / 2 && point.y > WINDOW_HEIGHT / 2) { //-- Area 4
+                //-- Calculate Line 1 Start Point
+                l1 = cv::Point(
+                    point.x - POINT_INFO_BOX_CIRCLE_RADIUS,
+                    point.y - POINT_INFO_BOX_CIRCLE_RADIUS
+                );
+                //-- Calculate Line 1 End and Line 2 Start Point
+                l2 = cv::Point(
+                    point.x - POINT_INFO_BOX_CIRCLE_RADIUS - POINT_INFO_BOX_LINE_1_SIZE * cos(
+                        POINT_INFO_BOX_LINE_1_ANGLE * CV_PI / 180
+                    ),
+                    point.y - POINT_INFO_BOX_CIRCLE_RADIUS - POINT_INFO_BOX_LINE_1_SIZE * sin(
+                        POINT_INFO_BOX_LINE_1_ANGLE * CV_PI / 180
+                    )
+                );
+                //-- Calculate Line 2 End Point
+                l3 = cv::Point(
+                    l2.x - POINT_INFO_BOX_LINE_2_SIZE,
+                    l2.y
+                );
+                //-- Calculate Line 3 End
+                l4 = cv::Point(
+                    l3.x - POINT_INFO_BOX_WIDTH,
+                    l3.y - POINT_INFO_BOX_HEIGHT
+                );
+            }
+            //-- Draw Ring Around Point
+            cv::circle(
+                temp,
+                cv::Point(point.x, point.y),
+                POINT_INFO_BOX_CIRCLE_RADIUS,
+                POINT_RING_COLOR,
+                POINT_RING_THICKNESS,
+                cv::LINE_AA
+            );
+            //-- Draw Line 1
+            cv::line(
+                temp,
+                l1,
+                l2,
+                POINT_INFO_BOX_LINE_1_COLOR,
+                POINT_INFO_BOX_LINE_1_THICKNESS,
+                cv::LINE_AA
+            );
+            //-- Draw Line 2
+            cv::line(
+                temp,
+                l2,
+                l3,
+                POINT_INFO_BOX_LINE_2_COLOR,
+                POINT_INFO_BOX_LINE_2_THICKNESS,
+                cv::LINE_AA
+            );
+            //-- Draw Info Box
+            cv::rectangle(
+                temp,
+                l3,
+                l4,
+                POINT_INFO_BOX_COLOR,
+                -1
+            );
+            //-- Draw Info Box Border
+            cv::rectangle(
+                temp,
+                l3,
+                l4,
+                POINT_INFO_BOX_LINE_2_COLOR,
+                POINT_INFO_BOX_LINE_2_THICKNESS
+            );
+            //-- Calculate Text Position
+            cv::Point text_position(
+                l3.x + POINT_INFO_BOX_TEXT_PADDING,
+                l3.y + POINT_INFO_BOX_TEXT_PADDING + 9
+            );
+            //-- Handle Text Position According to Point Position in All 4 Areas
+            if (point.x < WINDOW_WIDTH / 2 && point.y <= WINDOW_HEIGHT / 2) { //-- Area 1
+                //-- Do Nothing
+            } else if (point.x >= WINDOW_WIDTH / 2 && point.y <= WINDOW_HEIGHT / 2) { //-- Area 2
+                text_position.x -= POINT_INFO_BOX_WIDTH;
+            } else if (point.x < WINDOW_WIDTH / 2 && point.y > WINDOW_HEIGHT / 2) { //-- Area 3
+                text_position.y -= POINT_INFO_BOX_HEIGHT;
+            } else if (point.x >= WINDOW_WIDTH / 2 && point.y > WINDOW_HEIGHT / 2) { //-- Area 4
+                text_position.x -= POINT_INFO_BOX_WIDTH;
+                text_position.y -= POINT_INFO_BOX_HEIGHT;
+            }
+            //-- Handle Info Box Text
+            if (info == "None") {
+                // info = "X: " + std::to_string(point.x) + ", Y: " + std::to_string(point.y);
+                //-- Show X
+                cv::putText(
+                    temp,
+                    "X: " + std::to_string(point.x),
+                    text_position,
+                    cv::FONT_HERSHEY_SIMPLEX,
+                    POINT_INFO_BOX_TEXT_SIZE,
+                    POINT_INFO_BOX_TEXT_COLOR,
+                    POINT_INFO_BOX_TEXT_THICKNESS
+                );
+                //-- Show Y
+                cv::putText(
+                    temp,
+                    "Y: " + std::to_string(point.y),
+                    cv::Point(
+                        text_position.x,
+                        text_position.y + POINT_INFO_BOX_TEXT_SIZE + POINT_INFO_BOX_NEXT_LINE
+                    ),
+                    cv::FONT_HERSHEY_SIMPLEX,
+                    POINT_INFO_BOX_TEXT_SIZE,
+                    POINT_INFO_BOX_TEXT_COLOR,
+                    POINT_INFO_BOX_TEXT_THICKNESS
+                );
+            } else {
+                //-- Handle Precision of Info String and Set it to 3 Decimal Points
+                std::stringstream stream;
+                stream << std::fixed << std::setprecision(3) << point.theta;
+                info = stream.str();
+                //-- Draw Text
+                cv::putText(
+                    temp,
+                    info,
+                    cv::Point(
+                        text_position.x,
+                        text_position.y + POINT_INFO_BOX_NEXT_LINE / 2
+                    ),
+                    cv::FONT_HERSHEY_SIMPLEX,
+                    POINT_INFO_BOX_TEXT_SIZE,
+                    POINT_INFO_BOX_TEXT_COLOR,
+                    POINT_INFO_BOX_TEXT_THICKNESS
+                );
+            }
         }
         //-- Add Point to Points
         if (add_to_points) {
@@ -361,8 +796,11 @@
         }
         //-- Load Final Matrix from Temp
         if (window_mode == SHOW_ON_TEMP_WINDOW) {
-            windows.temp1.matrix = temp;
+            temp.copyTo(windows.temp1.matrix);
+        } else if (window_mode == SHOW_ON_TEMP_WINDOW_RESET) {
+            temp.copyTo(windows.temp2.matrix);
         } else {
+            // temp.copyTo(windows.main.matrix);
             windows.main.matrix = temp;
         }
         //-- Check Show Flag
@@ -379,7 +817,21 @@
                 //-- Show Temp Window
                 cv::imshow(WINDOW_NAME, windows.temp1.matrix);
                 cv::waitKey(1);
+            } else if (window_mode == SHOW_ON_TEMP_WINDOW_RESET) {
+                //-- Copy Main Window to Temp Window if Temp Window is Empty
+                if (windows.temp2.matrix.empty()) {
+                    windows.temp1.matrix.copyTo(windows.temp2.matrix);
+                }
+                //-- Show Temp Window
+                cv::imshow(WINDOW_NAME, windows.temp2.matrix);
+                cv::waitKey(1);
             }
+        }
+        //-- Handle Delay
+        if (show_method == SHOW_POINT_INFO_BOX) {
+            cv::waitKey(1000);
+        } else {
+            // cv::waitKey(1);
         }
     }
     /**
@@ -412,11 +864,11 @@
         if (window_mode == SHOW_ON_TEMP_WINDOW) {
             //-- Check if Temp Window is Empty
             if (windows.temp1.matrix.empty()) {
-                windows.temp1.matrix = windows.main.matrix;
+                windows.main.matrix.copyTo(windows.temp1.matrix);
             }
-            temp = windows.temp1.matrix;
+            windows.temp1.matrix.copyTo(temp);
         } else {
-            temp = windows.main.matrix;
+            windows.main.matrix.copyTo(temp);
         }
         cv::line(
             temp,
@@ -477,9 +929,9 @@
         }
         //-- Load Final Matrix from Temp
         if (window_mode == SHOW_ON_TEMP_WINDOW) {
-            windows.temp1.matrix = temp;
+            temp.copyTo(windows.temp1.matrix);
         } else {
-            windows.main.matrix = temp;
+            temp.copyTo(windows.main.matrix);
         }
         //-- Check Show Flag
         if(show_flag) {

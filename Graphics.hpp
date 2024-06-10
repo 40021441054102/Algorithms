@@ -21,6 +21,10 @@
     // # ifndef OPENCV_VIZ_HPP
     //     # include "opencv4/opencv2/viz.hpp"
     // # endif // OPENCV_VIZ_HPP
+    //-- Include IOmanip
+    # ifndef _GLIBCXX_IOMANIP
+        # include <iomanip>
+    # endif // _GLIBCXX_IOMANIP
     //-- Include X11
     # ifndef _X11_XLIB_H_
         # include <X11/Xlib.h>
@@ -197,6 +201,110 @@
      */
     # define POINT_RING_THICKNESS                  1
     /**
+     * @def POINT_INFO_BOX_CIRCLE_RADIUS
+     * @brief Point Info Box Circle Radius Configuration
+     * @details This Macro Defines the Radius of the Circle in the Info Box
+     */
+    # define POINT_INFO_BOX_CIRCLE_RADIUS          5
+    /**
+     * @def POINT_INFO_BOX_LINE_1_SIZE
+     * @brief Point Info Box Line 1 Size Configuration
+     * @details This Macro Defines the Size of the Line 1 in the Info Box
+     */
+    # define POINT_INFO_BOX_LINE_1_SIZE            60
+    /**
+     * @def POINT_INFO_BOX_LINE_1_ANGLE
+     * @brief Point Info Box Line 1 Angle Configuration
+     * @details This Macro Defines the Angle of the Line 1 in the Info Box
+     */
+    # define POINT_INFO_BOX_LINE_1_ANGLE           37
+    /**
+     * @def POINT_INFO_BOX_LINE_1_COLOR
+     * @brief Point Info Box Line 1 Color Configuration
+     * @details This Macro Defines the Color of the Line 1 in the Info Box
+     * @note Color Object Must be cv::Scalar
+     * @note Format Must be BGR
+     */
+    # define POINT_INFO_BOX_LINE_1_COLOR           cv::Scalar(196, 137, 137)
+    /**
+     * @def POINT_INFO_BOX_LINE_1_THICKNESS
+     * @brief Point Info Box Line 1 Thickness Configuration
+     * @details This Macro Defines the Thickness of the Line 1 in the Info Box
+     */
+    # define POINT_INFO_BOX_LINE_1_THICKNESS       1
+    /**
+     * @def POINT_INFO_BOX_LINE_2_SIZE
+     * @brief Point Info Box Line 2 Size Configuration
+     * @details This Macro Defines the Size of the Line 2 in the Info Box
+     */
+    # define POINT_INFO_BOX_LINE_2_SIZE            30
+    /**
+     * @def POINT_INFO_BOX_LINE_2_COLOR
+     * @brief Point Info Box Line 2 Color Configuration
+     * @details This Macro Defines the Color of the Line 2 in the Info Box
+     * @note Color Object Must be cv::Scalar
+     * @note Format Must be BGR
+     */
+    # define POINT_INFO_BOX_LINE_2_COLOR           cv::Scalar(196, 137, 137)
+    /**
+     * @def POINT_INFO_BOX_LINE_2_THICKNESS
+     * @brief Point Info Box Line 2 Thickness Configuration
+     * @details This Macro Defines the Thickness of the Line 2 in the Info Box
+     */
+    # define POINT_INFO_BOX_LINE_2_THICKNESS       1
+    /**
+     * @def POINT_INFO_BOX_WIDTH
+     * @brief Point Info Box Width Configuration
+     * @details This Macro Defines the Width of the Info Box
+     */
+    # define POINT_INFO_BOX_WIDTH                  80
+    /**
+     * @def POINT_INFO_BOX_HEIGHT
+     * @brief Point Info Box Height Configuration
+     * @details This Macro Defines the Height of the Info Box
+     */
+    # define POINT_INFO_BOX_HEIGHT                 37
+    /**
+     * @def POINT_INFO_BOX_COLOR
+     * @brief Point Info Box Color Configuration
+     * @details This Macro Defines the Color of the Info Box
+     * @note Color Object Must be cv::Scalar
+     * @note Format Must be BGR
+     */
+    # define POINT_INFO_BOX_COLOR                  cv::Scalar(37, 15, 2)
+    /**
+     * @def POINT_INFO_BOX_TEXT_SIZE
+     * @brief Point Info Box Text Size Configuration
+     * @details This Macro Defines the Size of the Text in the Info Box
+     */
+    # define POINT_INFO_BOX_TEXT_PADDING           5
+    /**
+     * @def POINT_INFO_BOX_TEXT_SIZE
+     * @brief Point Info Box Text Size Configuration
+     * @details This Macro Defines the Size of the Text in the Info Box
+     */
+    # define POINT_INFO_BOX_TEXT_SIZE              0.4
+    /**
+     * @def POINT_INFO_BOX_TEXT_THICKNESS
+     * @brief Point Info Box Text Thickness Configuration
+     * @details This Macro Defines the Thickness of the Text in the Info Box
+     */
+    # define POINT_INFO_BOX_TEXT_THICKNESS         1
+    /**
+     * @def POINT_INFO_BOX_TEXT_COLOR
+     * @brief Point Info Box Text Color Configuration
+     * @details This Macro Defines the Color of the Text in the Info Box
+     * @note Color Object Must be cv::Scalar
+     * @note Format Must be BGR
+     */
+    # define POINT_INFO_BOX_TEXT_COLOR             cv::Scalar(255, 255, 255)
+    /**
+     * @def POINT_INFO_BOX_NEXT_LINE
+     * @brief Point Info Box Next Line Configuration
+     * @details This Macro Defines Distance of the Next Line in the Info Box
+     */
+    # define POINT_INFO_BOX_NEXT_LINE              15
+    /**
      * @def LINE_TICKNESS
      * @brief Line Thickness Configuration
      * @details This Macro Defines the Thickness of the Line
@@ -291,12 +399,14 @@
      * @enum ENUM_SHOW_WINDOW_MODE
      * @brief Show on Window Mode Enum
      * @details This Enum Defines the Mode of Showing on the Window
+     * @param SHOW_ON_TEMP_WINDOW_RESET Show on Temp Window and Reset Temp Window each Time
      * @param SHOW_ON_MAIN_WINDOW Show on Main Window
      * @param SHOW_ON_TEMP_WINDOW Show on Temp Window
      */
     enum ENUM_SHOW_WINDOW_MODE {
+        SHOW_ON_TEMP_WINDOW_RESET,
         SHOW_ON_MAIN_WINDOW,
-        SHOW_ON_TEMP_WINDOW
+        SHOW_ON_TEMP_WINDOW,
     };
     /**
      * @namespace env
@@ -805,7 +915,8 @@
                 bool add_to_points,
                 bool show_flag,
                 ENUM_SHOW_POINT_METHODS show_method,
-                ENUM_SHOW_WINDOW_MODE window_method
+                ENUM_SHOW_WINDOW_MODE window_method,
+                std::string info
             );
             /**
              * @brief Method to Draw Line
