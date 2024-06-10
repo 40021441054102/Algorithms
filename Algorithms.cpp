@@ -33,7 +33,7 @@
                         int(WINDOW_WIDTH * 0.9),
                         environment,
                         RANDOM_DATA_SHAPE_SPIRAL,
-                        CALCULATE_DATA_THETA_HIGHEST
+                        CALCULATE_DATA_THETA_LOWEST
                     );
                 }
                 // std::cout << LOG "Bubble Sort Algorithm" << RESET << std::endl;
@@ -206,12 +206,14 @@
                         true,
                         show_flag,
                         SHOW_POINT_NORMAL,
-                        SHOW_ON_MAIN_WINDOW
+                        SHOW_ON_MAIN_WINDOW,
+                        "None"
                     );
                 }
             }
             //-- Check if Calculating Theta Flag is True
             if (calc_flag == false) {
+                //-- Find Base Index
                 if (calc_theta == CALCULATE_DATA_THETA_HIGHEST) {
                     //-- Find Highest Point
                     int index = 0;
@@ -238,22 +240,92 @@
                                 false,
                                 true,
                                 SHOW_POINT_RING,
-                                SHOW_ON_TEMP_WINDOW
+                                SHOW_ON_TEMP_WINDOW,
+                                "None"
                             );
                             //-- Update Highest Point
                             highest_point = i;
+                            base_index = highest_point;
                             //-- Increase Index
                             index++;
+                            //-- Show Window
+                            cv::imshow(WINDOW_NAME, graphics.windows.temp1.matrix);
+                            cv::waitKey(SHOW_FRAME_THRESHOLD);
                         }
                     }
                 } else if (calc_theta == CALCULATE_DATA_THETA_LOWEST) {
+                    //-- Find Lowest Point
+                    int index = 0;
+                    int lowest_point = 0;
+                    for (int i = 0; i < graphics.points2D.size(); i++) {
+                        if (graphics.points2D[i].y > graphics.points2D[lowest_point].y) {
+                            //-- Show Line from Current Point to Last Lowest Point
+                            if (index > 0) {
+                                graphics.drawLine(
+                                    graphics.points2D[lowest_point],
+                                    graphics.points2D[i],
+                                    std::to_string(index),
+                                    cv::Scalar(126, 128, 88),
+                                    LINE_TICKNESS,
+                                    false,
+                                    true,
+                                    SHOW_LINE_WEIGHTED,
+                                    SHOW_ON_TEMP_WINDOW
+                                );
+                            }
+                            //-- Show Point Itself
+                            graphics.drawPoint(
+                                graphics.points2D[i],
+                                false,
+                                true,
+                                SHOW_POINT_RING,
+                                SHOW_ON_TEMP_WINDOW,
+                                "None"
+                            );
+                            //-- Update Lowest Point
+                            lowest_point = i;
+                            base_index = lowest_point;
+                            //-- Increase Index
+                            index++;
+                            //-- Show Window
+                            cv::imshow(WINDOW_NAME, graphics.windows.temp1.matrix);
+                            cv::waitKey(SHOW_FRAME_THRESHOLD);
+                        }
+                    }
                 } else {
                     std::cout << TAB ERROR "Theta Calculation Method Not Supported" << std::endl;
                 }
+                //-- Show Base Point
+                graphics.drawPoint(
+                    graphics.points2D[base_index],
+                    false,
+                    true,
+                    SHOW_POINT_INFO_BOX,
+                    SHOW_ON_TEMP_WINDOW,
+                    "Base"
+                );
+                //-- Calculate each Point's Theta According to Base Point
+                for (int i = 0; i < graphics.points2D.size(); i++) {
+                    graphics.points2D[i].theta = atan2(
+                        graphics.points2D[i].y - graphics.points2D[base_index].y,
+                        graphics.points2D[i].x - graphics.points2D[base_index].x
+                    ) * 180 / M_PI;
+                    //-- Show Point Itself with Frame Threshold
+                    if (i % (SHOW_FRAME_THRESHOLD / 2) == 0) {
+                        graphics.drawPoint(
+                            graphics.points2D[i],
+                            false,
+                            true,
+                            SHOW_POINT_INFO_BOX,
+                            SHOW_ON_TEMP_WINDOW_RESET,
+                            std::to_string(graphics.points2D[i].theta)
+                        );
+                    }
+                }
             }
             //-- Show Graphics
-            cv::imshow(WINDOW_NAME, graphics.windows.main.matrix);
             cv::waitKey(0);
+            cv::imshow(WINDOW_NAME, graphics.windows.main.matrix);
         } else if (environment == ENVIRONMENT_3D) {
             std::cout << TAB ERROR "Generating Data for 3D Environment has Not Yet been Implemented" << std::endl;
         } else {

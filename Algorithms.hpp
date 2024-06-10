@@ -236,6 +236,11 @@
              * @details The Variable is Used to Store the Input Data for the Algorithm.
              */
             std::vector<int> data;
+            /**
+             * @brief Represents the Base Index of the Data.
+             * @details The Variable is Used to Store the Base Index of the Data for the Algorithm.
+             */
+            int base_index;
         public:
             /**
              * @brief Algorithms Constructor
