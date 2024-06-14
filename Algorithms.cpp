@@ -296,14 +296,14 @@
                     std::cout << TAB ERROR "Theta Calculation Method Not Supported" << std::endl;
                 }
                 //-- Show Base Point
-                graphics.drawPoint(
-                    graphics.points2D[base_index],
-                    false,
-                    true,
-                    SHOW_POINT_INFO_BOX,
-                    SHOW_ON_TEMP_WINDOW,
-                    "Base"
-                );
+                // graphics.drawPoint(
+                //     graphics.points2D[base_index],
+                //     false,
+                //     true,
+                //     SHOW_POINT_INFO_BOX,
+                //     SHOW_ON_TEMP_WINDOW,
+                //     "Base"
+                // );
                 //-- Calculate each Point's Theta According to Base Point
                 for (int i = 0; i < graphics.points2D.size(); i++) {
                     graphics.points2D[i].theta = atan2(
@@ -311,18 +311,20 @@
                         graphics.points2D[i].x - graphics.points2D[base_index].x
                     ) * 180 / M_PI;
                     //-- Show Point Itself with Frame Threshold
-                    if (i % (SHOW_FRAME_THRESHOLD / 2) == 0) {
-                        graphics.drawPoint(
-                            graphics.points2D[i],
-                            false,
-                            true,
-                            SHOW_POINT_INFO_BOX,
-                            SHOW_ON_TEMP_WINDOW_RESET,
-                            std::to_string(graphics.points2D[i].theta)
-                        );
-                    }
+                    // if (i % (SHOW_FRAME_THRESHOLD / 2) == 0) {
+                    //     graphics.drawPoint(
+                    //         graphics.points2D[i],
+                    //         false,
+                    //         true,
+                    //         SHOW_POINT_INFO_BOX,
+                    //         SHOW_ON_TEMP_WINDOW_RESET,
+                    //         std::to_string(graphics.points2D[i].theta)
+                    //     );
+                    // }
                 }
+                std::cout << SUCCESS "All Points Theta Calculated" << RESET << std::endl;
             }
+            std::cout << SUCCESS "Random Data Generated" << RESET << std::endl;
             //-- Show Graphics
             cv::waitKey(0);
             cv::imshow(WINDOW_NAME, graphics.windows.main.matrix);
@@ -331,10 +333,5 @@
         } else {
             std::cout << ERROR "Environment Not Supported" << std::endl;
         }
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<int> distribution(1, 100);
-        int random_number = distribution(gen);
     }
-    //-- Method to C
 # endif // ALGORITHMS_OMID_SOJOODI

@@ -827,12 +827,6 @@
                 cv::waitKey(1);
             }
         }
-        //-- Handle Delay
-        if (show_method == SHOW_POINT_INFO_BOX) {
-            cv::waitKey(1000);
-        } else {
-            // cv::waitKey(1);
-        }
     }
     /**
      * @brief Method to Draw Line
