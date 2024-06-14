@@ -16,18 +16,22 @@
     }
     /**
      * @brief Bubble Sort Algorithm
-     * @details This Function Sorts an 2D Array (Points Array) Using Bubble Sort Algorithm
+     * @details This Function Contains Bubble Sort Algorithm
      * 
-     * @param array 2D Array to Sort
+     * @param array Array to Sort
+     * @param size Size of Array
      * @param order Sort Order
+     * @param graphics Graphics Object
+     * @param method Sorting Method
      */
-    void BubbleSort::getSorted2D(
+    std::vector<env::Point2D> BubbleSort::getSorted2D(
         std::vector<env::Point2D> array,
         ENUM_SUPPORTED_SORT_ORDERS_BUBBLE order,
         bool use_graphics,
         Graphics &  graphics,
         ENUM_SUPPORTED_SORTING_METHODS method
     ) {
+        //-- Handle Graphics
         if (use_graphics) {
             bool show_flag = false;
             int blue = 0, green = 0, red = 0;
@@ -452,5 +456,7 @@
                 }
             }
         }
+        //-- Return Sorted Array
+        return array;
     }
 # endif // ALGORITHMS_OMID_SOJOODI_SORTS_BUBBLE

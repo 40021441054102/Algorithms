@@ -2,7 +2,7 @@
 # ifndef ALGORITHMS_OMID_SOJOODI_SORTS_BUBBLE
     /**
      * @file Bubble.hpp
-     * @author Ramtin Kosari (
+     * @author Ramtin Kosari ( ramtinkosari@gmail.com )
      * @brief Bubble Sort Header File
      * @date 2024-06-07
      * @def ALGORITHMS_OMID_SOJOODI_SORTS_BUBBLE
@@ -54,13 +54,13 @@
         BUBBLE_SORT_BOTTOM_TO_TOP,
         BUBBLE_SORT_THETA
     };
+    /**
+     * @class BubbleSort
+     * @brief Bubble Sort Class
+     * @details This Class Contains Bubble Sort Algorithm
+     */
     class BubbleSort {
         public:
-            // /**
-            //  * @brief Graphics Module
-            //  * @details This Module Contains Graphics Functions
-            //  */
-            // Graphics graphics;
             /**
              * @brief Bubble Sort Constructor
              * @details This Constructor Initializes Bubble Sort Module
@@ -75,10 +75,13 @@
              * @brief Bubble Sort Algorithm
              * @details This Function Sorts an 2D Array (Points Array) Using Bubble Sort Algorithm
              * 
-             * @param array 2D Array to Sort
+             * @param array Array to Sort
+             * @param size Size of Array
              * @param order Sort Order
+             * @param graphics Graphics Object
+             * @param method Sorting Method
              */
-            void getSorted2D(
+            std::vector<env::Point2D> getSorted2D(
                 std::vector<env::Point2D> array,
                 ENUM_SUPPORTED_SORT_ORDERS_BUBBLE order,
                 bool use_graphics,
