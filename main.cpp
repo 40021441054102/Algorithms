@@ -67,8 +67,8 @@ int main() {
         std::cout << TAB TAB YELLOW "1.1." YELLOW2 " Insertion Sort" IMPLEMENTED << std::endl;
         std::cout << TAB TAB YELLOW "1.2." YELLOW2 " Selection Sort" IMPLEMENTED << std::endl;
         std::cout << TAB TAB YELLOW "1.3." YELLOW2 " Bubble Sort" IMPLEMENTED << std::endl;
-        std::cout << TAB TAB YELLOW "1.4." YELLOW2 " Merge Sort" IMPLEMENTING << std::endl;
-        std::cout << TAB TAB YELLOW "1.5." YELLOW2 " Quick Sort" IMPLEMENTING << std::endl;
+        std::cout << TAB TAB YELLOW "1.4." YELLOW2 " Quick Sort" IMPLEMENTING << std::endl;
+        std::cout << TAB TAB YELLOW "1.5." YELLOW2 " Merge Sort" IMPLEMENTED << std::endl;
         std::cout << TAB TAB YELLOW "1.6." YELLOW2 " Heap Sort" IMPLEMENTING << std::endl;
         //-- Search
         std::cout << TAB CYAN "2." CYAN2 " Search" << std::endl;
@@ -206,8 +206,8 @@ int main() {
                 std::cout << TAB CYAN "1." CYAN2 " Insertion Sort"  IMPLEMENTED << std::endl;
                 std::cout << TAB CYAN "2." CYAN2 " Selection Sort"  IMPLEMENTED << std::endl;
                 std::cout << TAB CYAN "3." CYAN2 " Bubble Sort"     IMPLEMENTED << std::endl;
-                std::cout << TAB CYAN "4." CYAN2 " Merge Sort"      IMPLEMENTING << std::endl;
-                std::cout << TAB CYAN "5." CYAN2 " Quick Sort"      IMPLEMENTING << std::endl;
+                std::cout << TAB CYAN "4." CYAN2 " Quick Sort"      IMPLEMENTING << std::endl;
+                std::cout << TAB CYAN "5." CYAN2 " Merge Sort"      IMPLEMENTED << std::endl;
                 std::cout << TAB CYAN "6." CYAN2 " Heap Sort"       IMPLEMENTING << std::endl;
                 std::cout << TAB CYAN "0." CYAN2 " Back" << std::endl;
                 int choice;
@@ -255,10 +255,24 @@ int main() {
                     }
                     //-- Merge Sort
                     case 4: {
+                        //-- Create Algorithm Object
+                        Algorithms algorithm(
+                            ALGORITHM_SORT_QUICK,
+                            ENVIRONMENT_2D,
+                            USE_RANDOM_DATA,
+                            USE_SINGLE_THREAD
+                        );
                         break;
                     }
                     //-- Quick Sort
                     case 5: {
+                        //-- Create Algorithm Object
+                        Algorithms algorithm(
+                            ALGORITHM_SORT_MERGE,
+                            ENVIRONMENT_2D,
+                            USE_RANDOM_DATA,
+                            USE_SINGLE_THREAD
+                        );
                         break;
                     }
                     //-- Heap Sort
