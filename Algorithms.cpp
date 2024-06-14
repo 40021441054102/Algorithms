@@ -32,7 +32,7 @@
                         int(WINDOW_WIDTH * 0.1),
                         int(WINDOW_WIDTH * 0.9),
                         environment,
-                        RANDOM_DATA_SHAPE_SPIRAL,
+                        RANDOM_DATA_SHAPE_DELTOID,
                         CALCULATE_DATA_THETA_MIDDLE
                     );
                 } else if (dataMethod == USE_INPUT_FILE) {
@@ -44,7 +44,7 @@
                 std::vector<env::Point2D> sorted_array;
                 sorted_array = sorts.bubble.getSorted2D(
                     graphics.points2D,
-                    BUBBLE_DESCENDING,
+                    BUBBLE_ASCENDING,
                     true,
                     graphics,
                     BUBBLE_SORT_THETA
@@ -110,10 +110,10 @@
                 std::vector<env::Point2D> sorted_array;
                 sorted_array = sorts.selection.getSorted2D(
                     graphics.points2D,
-                    SELECTION_DESCENDING,
+                    SELECTION_ASCENDING,
                     true,
                     graphics,
-                    SELECTION_SORT_BOTTOM_TO_TOP
+                    SELECTION_SORT_THETA
                 );
                 //-- Starting Time
                 begin_time = std::chrono::high_resolution_clock::now();
@@ -128,7 +128,6 @@
                 end_time = std::chrono::high_resolution_clock::now();
                 algorithm_duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end_time - begin_time);
                 std::cout << MODULE "Algorithm Process Time: " << algorithm_duration.count() << "s" << RESET << std::endl;
-                break;
                 //-- Show Sorted Array
                 int red, green, blue;
                 for (int i = 0; i < sorted_array.size() - 1; i++) {
@@ -153,7 +152,8 @@
                     );
                 }
                 cv::imshow(WINDOW_NAME, graphics.windows.main.matrix);
-                cv::waitKey(1);
+                cv::waitKey(0);
+                break;
             }
         }
     }
