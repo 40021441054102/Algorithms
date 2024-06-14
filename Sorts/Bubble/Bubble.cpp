@@ -29,7 +29,7 @@
         ENUM_SUPPORTED_SORT_ORDERS_BUBBLE order,
         bool use_graphics,
         Graphics &  graphics,
-        ENUM_SUPPORTED_SORTING_METHODS method
+        ENUM_SUPPORTED_SORTING_METHODS_BUBBLE method
     ) {
         //-- Handle Graphics
         if (use_graphics) {
@@ -432,8 +432,119 @@
             std::cout << MODULE BUBBLE_SORT_LABEL "Sorted 2D Array" << std::endl;
             cv::imshow(WINDOW_NAME, graphics.windows.temp2.matrix);
         } else {
+            //-- Handle Order
             if (order == BUBBLE_ASCENDING) {
-                //-- Sort Array According to each Points theta from Base Point's Theta
+                //-- Handle Method
+                if (method == BUBBLE_SORT_LEFT_TO_RIGHT) {
+                    for (int i = 0; i < array.size(); i++) {
+                        for (int j = 0; j < array.size() - i - 1; j++) {
+                            if (array[j].x > array[j + 1].x) {
+                                env::Point2D temp = array[j];
+                                array[j] = array[j + 1];
+                                array[j + 1] = temp;
+                            }
+                        }
+                    }
+                } else if (method == BUBBLE_SORT_RIGHT_TO_LEFT) {
+                    for (int i = 0; i < array.size(); i++) {
+                        for (int j = 0; j < array.size() - i - 1; j++) {
+                            if (array[j].x < array[j + 1].x) {
+                                env::Point2D temp = array[j];
+                                array[j] = array[j + 1];
+                                array[j + 1] = temp;
+                            }
+                        }
+                    }
+                } else if (method == BUBBLE_SORT_TOP_TO_BOTTOM) {
+                    for (int i = 0; i < array.size(); i++) {
+                        for (int j = 0; j < array.size() - i - 1; j++) {
+                            if (array[j].y > array[j + 1].y) {
+                                env::Point2D temp = array[j];
+                                array[j] = array[j + 1];
+                                array[j + 1] = temp;
+                            }
+                        }
+                    }
+                } else if (method == BUBBLE_SORT_BOTTOM_TO_TOP) {
+                    for (int i = 0; i < array.size(); i++) {
+                        for (int j = 0; j < array.size() - i - 1; j++) {
+                            if (array[j].y < array[j + 1].y) {
+                                env::Point2D temp = array[j];
+                                array[j] = array[j + 1];
+                                array[j + 1] = temp;
+                            }
+                        }
+                    }
+                } else if (method == BUBBLE_SORT_THETA) {
+                    //-- Sort Array According to each Points theta from Base Point's Theta
+                    for (int i = 0; i < array.size(); i++) {
+                        for (int j = 0; j < array.size() - i - 1; j++) {
+                            if (array[j].theta > array[j + 1].theta) {
+                                env::Point2D temp = array[j];
+                                array[j] = array[j + 1];
+                                array[j + 1] = temp;
+                            }
+                        }
+                    }
+                } else {
+                    std::cout << ERROR BUBBLE_SORT_LABEL "Invalid Sort Method" << std::endl;
+                }
+            } else if (order == BUBBLE_DESCENDING) {
+                //-- Handle Method
+                if (method == BUBBLE_SORT_LEFT_TO_RIGHT) {
+                    for (int i = 0; i < array.size(); i++) {
+                        for (int j = 0; j < array.size() - i - 1; j++) {
+                            if (array[j].x < array[j + 1].x) {
+                                env::Point2D temp = array[j];
+                                array[j] = array[j + 1];
+                                array[j + 1] = temp;
+                            }
+                        }
+                    }
+                } else if (method == BUBBLE_SORT_RIGHT_TO_LEFT) {
+                    for (int i = 0; i < array.size(); i++) {
+                        for (int j = 0; j < array.size() - i - 1; j++) {
+                            if (array[j].x > array[j + 1].x) {
+                                env::Point2D temp = array[j];
+                                array[j] = array[j + 1];
+                                array[j + 1] = temp;
+                            }
+                        }
+                    }
+                } else if (method == BUBBLE_SORT_TOP_TO_BOTTOM) {
+                    for (int i = 0; i < array.size(); i++) {
+                        for (int j = 0; j < array.size() - i - 1; j++) {
+                            if (array[j].y < array[j + 1].y) {
+                                env::Point2D temp = array[j];
+                                array[j] = array[j + 1];
+                                array[j + 1] = temp;
+                            }
+                        }
+                    }
+                } else if (method == BUBBLE_SORT_BOTTOM_TO_TOP) {
+                    for (int i = 0; i < array.size(); i++) {
+                        for (int j = 0; j < array.size() - i - 1; j++) {
+                            if (array[j].y > array[j + 1].y) {
+                                env::Point2D temp = array[j];
+                                array[j] = array[j + 1];
+                                array[j + 1] = temp;
+                            }
+                        }
+                    }
+                } else if (method == BUBBLE_SORT_THETA) {
+                    //-- Sort Array According to each Points theta from Base Point's Theta
+                    for (int i = 0; i < array.size(); i++) {
+                        for (int j = 0; j < array.size() - i - 1; j++) {
+                            if (array[j].theta < array[j + 1].theta) {
+                                env::Point2D temp = array[j];
+                                array[j] = array[j + 1];
+                                array[j + 1] = temp;
+                            }
+                        }
+                    }
+                } else {
+                    std::cout << ERROR BUBBLE_SORT_LABEL "Invalid Sort Method" << std::endl;
+                }
                 for (int i = 0; i < array.size(); i++) {
                     for (int j = 0; j < array.size() - i - 1; j++) {
                         if (array[j].theta > array[j + 1].theta) {
@@ -443,17 +554,8 @@
                         }
                     }
                 }
-            } else if (order == BUBBLE_DESCENDING) {
-                //-- Sort Array According to each Points theta from Base Point's Theta
-                for (int i = 0; i < array.size(); i++) {
-                    for (int j = 0; j < array.size() - i - 1; j++) {
-                        if (array[j].theta < array[j + 1].theta) {
-                            env::Point2D temp = array[j];
-                            array[j] = array[j + 1];
-                            array[j + 1] = temp;
-                        }
-                    }
-                }
+            } else {
+                std::cout << ERROR BUBBLE_SORT_LABEL "Invalid Sort Order" << std::endl;
             }
         }
         //-- Return Sorted Array

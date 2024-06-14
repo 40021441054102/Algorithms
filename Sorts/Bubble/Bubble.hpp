@@ -37,7 +37,7 @@
         BUBBLE_DESCENDING
     };
     /**
-     * @enum ENUM_SUPPORTED_SORTING_METHODS
+     * @enum ENUM_SUPPORTED_SORTING_METHODS_BUBBLE
      * @brief Supported Sorting Methods
      * @details This Enum Contains Supported Sorting Methods for Bubble Sort Algorithm
      * 
@@ -47,7 +47,7 @@
      * @param BUBBLE_SORT_BOTTOM_TO_TOP Bottom to Top Sorting Method
      * @param BUBBLE_SORT_THETA Theta Sorting Method
      */
-    enum ENUM_SUPPORTED_SORTING_METHODS {
+    enum ENUM_SUPPORTED_SORTING_METHODS_BUBBLE {
         BUBBLE_SORT_LEFT_TO_RIGHT,
         BUBBLE_SORT_RIGHT_TO_LEFT,
         BUBBLE_SORT_TOP_TO_BOTTOM,
@@ -86,7 +86,7 @@
                 ENUM_SUPPORTED_SORT_ORDERS_BUBBLE order,
                 bool use_graphics,
                 Graphics &  graphics,
-                ENUM_SUPPORTED_SORTING_METHODS method = BUBBLE_SORT_THETA
+                ENUM_SUPPORTED_SORTING_METHODS_BUBBLE method = BUBBLE_SORT_THETA
             );
     };
 # endif // ALGORITHMS_OMID_SOJOODI_SORTS_BUBBLE
