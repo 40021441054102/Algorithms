@@ -216,6 +216,17 @@
      */
     class Algorithms {
         private:
+            Graphics graphics;
+            /**
+             * @brief Represents the 2D Data Vector.
+             * @details The Variable is Used to Store the 2D Data for the Algorithm.
+             */
+            std::vector<env::Point2D> data2D;
+            /**
+             * @brief Represents the 3D Data Vector.
+             * @details The Variable is Used to Store the 3D Data for the Algorithm.
+             */
+            std::vector<env::Point3D> data3D;
             /**
              * @brief Represents the Starting Time Point.
              * @details The Variable is Initialized in the Constructor and Used to Calculate the Processing Time of the Algorithm.

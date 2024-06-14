@@ -14,6 +14,10 @@
     # ifndef ALGORITHMS_OMID_SOJOODI_CONFIGS
         # include "../../Configs.hpp"
     # endif // ALGORITHMS_OMID_SOJOODI_CONFIGS
+    //-- Include Graphics Module
+    # ifndef GRAPHICS_OMID_SOJOODI
+        # include "../../Graphics.hpp"
+    # endif // GRAPHICS_OMID_SOJOODI
     /**
      * @def BUBBLE_SORT_LABEL
      * @brief Bubble Sort Log Message
@@ -32,12 +36,54 @@
         BUBBLE_ASCENDING,
         BUBBLE_DESCENDING
     };
+    /**
+     * @enum ENUM_SUPPORTED_SORTING_METHODS
+     * @brief Supported Sorting Methods
+     * @details This Enum Contains Supported Sorting Methods for Bubble Sort Algorithm
+     * 
+     * @param BUBBLE_SORT_LEFT_TO_RIGHT Left to Right Sorting Method
+     * @param BUBBLE_SORT_RIGHT_TO_LEFT Right to Left Sorting Method
+     * @param BUBBLE_SORT_TOP_TO_BOTTOM Top to Bottom Sorting Method
+     * @param BUBBLE_SORT_BOTTOM_TO_TOP Bottom to Top Sorting Method
+     * @param BUBBLE_SORT_THETA Theta Sorting Method
+     */
+    enum ENUM_SUPPORTED_SORTING_METHODS {
+        BUBBLE_SORT_LEFT_TO_RIGHT,
+        BUBBLE_SORT_RIGHT_TO_LEFT,
+        BUBBLE_SORT_TOP_TO_BOTTOM,
+        BUBBLE_SORT_BOTTOM_TO_TOP,
+        BUBBLE_SORT_THETA
+    };
     class BubbleSort {
         public:
+            // /**
+            //  * @brief Graphics Module
+            //  * @details This Module Contains Graphics Functions
+            //  */
+            // Graphics graphics;
             /**
              * @brief Bubble Sort Constructor
              * @details This Constructor Initializes Bubble Sort Module
              */
             BubbleSort();
+            /**
+             * @brief Bubble Sort Destructor
+             * @details This Destructor Deinitializes Bubble Sort Module
+             */
+            ~BubbleSort();
+            /**
+             * @brief Bubble Sort Algorithm
+             * @details This Function Sorts an 2D Array (Points Array) Using Bubble Sort Algorithm
+             * 
+             * @param array 2D Array to Sort
+             * @param order Sort Order
+             */
+            void getSorted2D(
+                std::vector<env::Point2D> array,
+                ENUM_SUPPORTED_SORT_ORDERS_BUBBLE order,
+                bool use_graphics,
+                Graphics &  graphics,
+                ENUM_SUPPORTED_SORTING_METHODS method = BUBBLE_SORT_THETA
+            );
     };
 # endif // ALGORITHMS_OMID_SOJOODI_SORTS_BUBBLE

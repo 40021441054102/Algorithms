@@ -32,17 +32,38 @@
                         int(WINDOW_WIDTH * 0.1),
                         int(WINDOW_WIDTH * 0.9),
                         environment,
-                        RANDOM_DATA_SHAPE_SPIRAL,
+                        RANDOM_DATA_SHAPE_SPIRAL_ROAD,
                         CALCULATE_DATA_THETA_LOWEST
                     );
+                } else if (dataMethod == USE_INPUT_FILE) {
+                    std::cout << TAB ERROR "Loading Data from Input File Method Not Yet Implemented" << std::endl;
+                } else {
+                    std::cout << TAB ERROR "Data Method Not Supported" << std::endl;
                 }
-                // std::cout << LOG "Bubble Sort Algorithm" << RESET << std::endl;
-                // sorts.bubble.sort();
+                //-- Sort with Visualization
+                sorts.bubble.getSorted2D(
+                    graphics.points2D,
+                    BUBBLE_DESCENDING,
+                    true,
+                    graphics,
+                    BUBBLE_SORT_BOTTOM_TO_TOP
+                );
+                //-- Starting Time
+                begin_time = std::chrono::high_resolution_clock::now();
+                //-- Sort
+                sorts.bubble.getSorted2D(
+                    graphics.points2D,
+                    BUBBLE_ASCENDING,
+                    false,
+                    graphics
+                );
+                //-- Ending Time
+                end_time = std::chrono::high_resolution_clock::now();
+                algorithm_duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end_time - begin_time);
+                std::cout << MODULE "Algorithm Process Time: " << algorithm_duration.count() << "s" << RESET << std::endl;
                 break;
             }
         }
-        std::cout << LOG "Starting Algorithm Process Time" << RESET << std::endl;
-        begin_time = std::chrono::high_resolution_clock::now();
     }
     /**
      * @brief Algorithms Destructor
@@ -69,13 +90,11 @@
         ENUM_RANDOM_DATA_SHAPES shape,
         ENUM_CALCULATE_DATA_THETA calc_theta
     ) {
-        std::cout << LOG "Generating Random Data ..." << RESET << std::endl;
+        // std::cout << LOG "Generating Random Data ..." << RESET << std::endl;
         //-- Generate Random Data According to Algorithm Environment
         if (environment == ENVIRONMENT_1D) {
             std::cout << TAB ERROR "Generating Data for 1D Environment has Not Yet been Implemented" << std::endl;
         } else if (environment == ENVIRONMENT_2D) {
-            //-- Initialize Graphics
-            Graphics graphics(environment);
             //-- Generate Random Data on 2D Environment
             graphics.points2D.clear();
             bool show_flag;
