@@ -22,6 +22,10 @@
     # ifndef ALGORITHMS_OMID_SOJOODI_SORTS_SELECTION
         # include "Selection/Selection.hpp"
     # endif // ALGORITHMS_OMID_SOJOODI_SORTS_SELECTION
+    //-- Insertion Sort
+    # ifndef ALGORITHMS_OMID_SOJOODI_SORTS_INSERTION
+        # include "Insertion/Insertion.hpp"
+    # endif // ALGORITHMS_OMID_SOJOODI_SORTS_INSERTION
     /**
      * @def SORT_LABEL
      * @brief Sort Log Message
@@ -52,18 +56,15 @@
              * @details This Method Sorts an Array Using Bubble Sort Algorithm
              */
             BubbleSort bubble;
-            // //-- Insertion Sort
-            // void insertionSort(int arr[], int n);
             /**
              * @brief Selection Sort Algorithm
              * @details This Method Sorts an Array Using Selection Sort Algorithm
              */
             SelectionSort selection;
-            // //-- Merge Sort
-            // void mergeSort(int arr[], int l, int r);
-            // //-- Quick Sort
-            // void quickSort(int arr[], int low, int high);
-            // //-- Heap Sort
-            // void heapSort(int arr[], int n);
+            /**
+             * @brief Insertion Sort Algorithm
+             * @details This Method Sorts an Array Using Insertion Sort Algorithm
+             */
+            InsertionSort insertion;
     };
 # endif // ALGORITHMS_OMID_SOJOODI_SORTS

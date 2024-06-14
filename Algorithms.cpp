@@ -155,6 +155,73 @@
                 cv::waitKey(0);
                 break;
             }
+            //-- Insertion Sort
+            case ALGORITHM_SORT_INSERTION: {
+                //-- Generate Random Data
+                if (dataMethod == USE_RANDOM_DATA) {
+                    generateRandomData(
+                        MAX_RANDOM_DATA,
+                        int(WINDOW_WIDTH * 0.1),
+                        int(WINDOW_WIDTH * 0.9),
+                        environment,
+                        RANDOM_DATA_SHAPE_SPIRAL,
+                        CALCULATE_DATA_THETA_MIDDLE
+                    );
+                } else if (dataMethod == USE_INPUT_FILE) {
+                    std::cout << TAB ERROR "Loading Data from Input File Method Not Yet Implemented" << std::endl;
+                } else {
+                    std::cout << TAB ERROR "Data Method Not Supported" << std::endl;
+                }
+                //-- Sort with Visualization
+                std::vector<env::Point2D> sorted_array;
+                sorted_array = sorts.insertion.getSorted2D(
+                    graphics.points2D,
+                    INSERTION_ASCENDING,
+                    true,
+                    graphics,
+                    INSERTION_SORT_THETA
+                );
+                //-- Starting Time
+                begin_time = std::chrono::high_resolution_clock::now();
+                //-- Sort
+                sorts.insertion.getSorted2D(
+                    graphics.points2D,
+                    INSERTION_ASCENDING,
+                    false,
+                    graphics
+                );
+                //-- Ending Time
+                end_time = std::chrono::high_resolution_clock::now();
+                algorithm_duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end_time - begin_time);
+                std::cout << MODULE "Algorithm Process Time: " << algorithm_duration.count() << "s" << RESET << std::endl;
+                //-- Show Sorted Array
+                int red, green, blue;
+                for (int i = 0; i < sorted_array.size() - 1; i++) {
+                    if (i % SHOW_FRAME_THRESHOLD == 0) {
+                        cv::imshow(WINDOW_NAME, graphics.windows.main.matrix);
+                        cv::waitKey(1);
+                    }
+                    //-- Handle Line Color
+                    green = 254 * (i / double(sorted_array.size())) / 3 + 20;
+                    blue = 254 * (i / double(sorted_array.size())) / 2 + 20;
+                    red = 254 * (i / double(sorted_array.size())) / 5 + 20;
+                    if (blue > 254) blue = 254; else if (blue < 0) blue = 50;
+                    if (green > 254) green = 254; else if (green < 0) green = 50;
+                    if (red > 254) red = 254; else if (red < 0) red = 50;
+                    cv::line(
+                        graphics.windows.main.matrix,
+                        cv::Point(sorted_array[i].x, sorted_array[i].y),
+                        cv::Point(sorted_array[i + 1].x, sorted_array[i + 1].y),
+                        cv::Scalar(blue, green, red),
+                        1,
+                        cv::LINE_AA
+                    );
+                }
+                cv::imshow(WINDOW_NAME, graphics.windows.main.matrix);
+                cv::waitKey(0);
+                break;
+            }
+            //-- Merge Sort
         }
     }
     /**
