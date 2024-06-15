@@ -320,7 +320,8 @@
                     graphics.points2D,
                     QUICK_ASCENDING,
                     false,
-                    graphics
+                    graphics,
+                    QUICK_SORT_THETA
                 );
                 //-- Ending Time
                 end_time = std::chrono::high_resolution_clock::now();
