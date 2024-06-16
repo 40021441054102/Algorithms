@@ -118,7 +118,7 @@ int main() {
         std::cout << TAB TAB YELLOW "11.1." YELLOW2 " Huffman Coding" IMPLEMENTING << std::endl;
         //-- N Queens Problem
         std::cout << TAB CYAN "12." CYAN2 " N Queens Problem" << std::endl;
-        std::cout << TAB TAB YELLOW "12.1." YELLOW2 " N Queens Problem" IMPLEMENTING << std::endl;
+        std::cout << TAB TAB YELLOW "12.1." YELLOW2 " N Queens Problem" IMPLEMENTED << std::endl;
         //-- Convex Hull
         std::cout << TAB CYAN "13." CYAN2 " Convex Hull" << std::endl;
         std::cout << TAB TAB YELLOW "13.1." YELLOW2 " Jarvis March" IMPLEMENTING << std::endl;
@@ -290,7 +290,7 @@ int main() {
             case 12: {
                 clearTerminal();
                 std::cout << CYAN " N Queens Problem" << std::endl;
-                std::cout << TAB CYAN "1." CYAN2 " N Queens Problem" IMPLEMENTING << std::endl;
+                std::cout << TAB CYAN "1." CYAN2 " N Queens Problem" IMPLEMENTED << std::endl;
                 std::cout << TAB CYAN "0." CYAN2 " Back" << std::endl;
                 int choice;
                 std::cout << CYAN "Enter Choice : " CYAN2; std::cin >> choice;
