@@ -286,6 +286,37 @@ int main() {
                 }
                 break;
             }
+            //-- N Queens Problem
+            case 12: {
+                clearTerminal();
+                std::cout << CYAN " N Queens Problem" << std::endl;
+                std::cout << TAB CYAN "1." CYAN2 " N Queens Problem" IMPLEMENTING << std::endl;
+                std::cout << TAB CYAN "0." CYAN2 " Back" << std::endl;
+                int choice;
+                std::cout << CYAN "Enter Choice : " CYAN2; std::cin >> choice;
+                //-- Handle Choice
+                switch (choice) {
+                    //-- Back
+                    case 0: {
+                        // cv::destroyAllWindows();
+                        break;
+                    }
+                    //-- N Queens Problem
+                    case 1: {
+                        //-- Create Algorithm Object
+                        Algorithms algorithm(
+                            ALGORITHM_N_QUEENS,
+                            ENVIRONMENT_2D
+                        );
+                        break;
+                    }
+                    //-- Default
+                    default: {
+                        break;
+                    }
+                }
+                break;
+            }
         }
     }
 }

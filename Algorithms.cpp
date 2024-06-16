@@ -17,8 +17,8 @@
     Algorithms::Algorithms(
         ENUM_SUPPORTED_ALGORITHMS algorithm,
         ENUM_ALGORITHM_ENVIRONMENT environment,
-        ENUM_ALGORITHMS_DATA_METHOD dataMethod = USE_RANDOM_DATA,
-        ENUM_ALGORIHTMS_PROCESSING_METHODS processingMethod = USE_SINGLE_THREAD
+        ENUM_ALGORITHMS_DATA_METHOD dataMethod,
+        ENUM_ALGORIHTMS_PROCESSING_METHODS processingMethod
     ) {
         std::cout << MODULE ALGORITHMS_LABEL "Initialized" << std::endl;
         //-- Initialize Algorithm
@@ -164,7 +164,7 @@
                         int(WINDOW_WIDTH * 0.1),
                         int(WINDOW_WIDTH * 0.9),
                         environment,
-                        RANDOM_DATA_SHAPE_SPIRAL,
+                        RANDOM_DATA_SHAPE_SPIRAL_ROAD,
                         CALCULATE_DATA_THETA_MIDDLE
                     );
                 } else if (dataMethod == USE_INPUT_FILE) {
@@ -179,7 +179,7 @@
                     INSERTION_ASCENDING,
                     true,
                     graphics,
-                    INSERTION_SORT_THETA
+                    INSERTION_SORT_BOTTOM_TO_TOP
                 );
                 //-- Starting Time
                 begin_time = std::chrono::high_resolution_clock::now();
@@ -352,6 +352,92 @@
                 }
                 cv::imshow(WINDOW_NAME, graphics.windows.main.matrix);
                 cv::waitKey(0);
+                break;
+            }
+            //-- N Queens
+            case ALGORITHM_N_QUEENS: {
+                //-- Generate Random Data
+                if (dataMethod == USE_RANDOM_DATA) {
+                    generateChessBoardData(
+                        CHESS_BOARD_SIZE,
+                        SHOW_BOX_CHESS_WEIGHTED,
+                        ENVIRONMENT_2D
+                    );
+                } else if (dataMethod == USE_INPUT_FILE) {
+                    std::cout << TAB ERROR "Loading Data from Input File Method Not Yet Implemented" << std::endl;
+                } else {
+                    std::cout << TAB ERROR "Data Method Not Supported" << std::endl;
+                }
+                //-- Solve N Queens Problem
+                nqueens.getSolved(
+                    graphics.boxes2D,
+                    graphics
+                );
+                //-- Show Solutions on Chess Board
+                cv::Mat image;
+                cv::Mat image_black = cv::imread("../NQueens/assets/2.png", cv::IMREAD_COLOR);
+                cv::Mat image_white = cv::imread("../NQueens/assets/1.png", cv::IMREAD_COLOR);
+                for (int index = 0; index < nqueens.solutions.size(); ++index) {
+                    graphics.windows.main.matrix.copyTo(graphics.windows.temp1.matrix);
+                    std::cout << MODULE NQUEENS_LABEL "Solution " << index + 1 << ":" << std::endl;
+                    for (int i = 0; i < nqueens.solutions[index].size(); ++i) {
+                        for (int j = 0; j < nqueens.solutions[index].size(); ++j) {
+                            //-- Handle Image Color
+                            if (i % 2 == 0) {
+                                if (j % 2 == 0) {
+                                    image = image_white;
+                                } else {
+                                    image = image_black;
+                                }
+                            } else {
+                                if (j % 2 == 0) {
+                                    image = image_black;
+                                } else {
+                                    image = image_white;
+                                }
+                            }
+                            if (nqueens.solutions[index][i] == j) {
+                                std::cout << TERMINAL_BACKGROUND TERMINAL_QUEEN " \033[0m";
+                                //-- Draw Rectangle on graphics.box2D (Chess Board) Where Queen is Placed
+                                // cv::rectangle(
+                                //     graphics.windows.temp1.matrix,
+                                //     cv::Point(
+                                //         graphics.boxes2D[i][j].p1.x,
+                                //         graphics.boxes2D[i][j].p1.y
+                                //     ),
+                                //     cv::Point(
+                                //         graphics.boxes2D[i][j].p2.x,
+                                //         graphics.boxes2D[i][j].p2.y
+                                //     ),
+                                //     cv::Scalar(0, 255, 255),
+                                //     -1,
+                                //     cv::LINE_AA
+                                // );
+                                //-- Draw Queen on graphics.box2D (Chess Board)
+                                graphics.drawImage(
+                                    cv::Point(
+                                        graphics.boxes2D[i][j].p1.x + 5,
+                                        graphics.boxes2D[i][j].p1.y + 5
+                                    ),
+                                    cv::Point(
+                                        graphics.boxes2D[i][j].p2.x - 5,
+                                        graphics.boxes2D[i][j].p2.y - 5
+                                    ),
+                                    // cv::imread("../NQueens/assets/black.png", cv::IMREAD_COLOR)
+                                    image
+                                );
+                                //-- Show Chess Board
+                                cv::imshow(WINDOW_NAME, graphics.windows.temp1.matrix);
+                                cv::waitKey(73);
+                            }
+                            else {
+                                std::cout << TERMINAL_BACKGROUND TERMINAL_EMPTY " \033[0m";
+                            }
+                        }
+                        std::cout << std::endl;
+                    }
+                    cv::waitKey(0);
+                }
                 break;
             }
         }
@@ -635,6 +721,86 @@
                 std::cout << SUCCESS "All Points Theta Calculated" << RESET << std::endl;
             }
             std::cout << SUCCESS "Random Data Generated" << RESET << std::endl;
+            //-- Show Graphics
+            cv::waitKey(0);
+            cv::imshow(WINDOW_NAME, graphics.windows.main.matrix);
+        } else if (environment == ENVIRONMENT_3D) {
+            std::cout << TAB ERROR "Generating Data for 3D Environment has Not Yet been Implemented" << std::endl;
+        } else {
+            std::cout << ERROR "Environment Not Supported" << std::endl;
+        }
+    }
+    /**
+     * @brief Generate Chess Board Data
+     * @details This Method Generates Chess Board Data for the Algorithm.
+     * 
+     * @param size The Size of the Chess Board
+     * @param method The Method to Show the Box
+     * @param environment The Environment to Generate Data
+     */
+    void Algorithms::generateChessBoardData(
+        int size,
+        ENUM_SHOW_BOX_METHODS method,
+        ENUM_ALGORITHM_ENVIRONMENT environment
+    ) {
+        //-- Generate Chess Board Data According to Algorithm Environment
+        if (environment == ENVIRONMENT_1D) {
+            std::cout << TAB ERROR "Generating Data for 1D Environment has Not Yet been Implemented" << std::endl;
+        } else if (environment == ENVIRONMENT_2D) {
+            //-- Extract Box Length According to Size and Window Width
+            int box_length = WINDOW_WIDTH / size;
+            //-- Generate Chess Board Data on 2D Environment
+            cv::Scalar color, text_color;
+            for (int i = 0; i < size; i++) {
+                std::vector<env::Box2D> row;
+                for (int j = 0; j < size; j++) {
+                    //-- Handle Color
+                    if ((i + j) % 2 == 0) {
+                        color = CHESS_BOARD_WHITE_COLOR;
+                        text_color = CHESS_BOARD_BLACK_COLOR;
+                    } else {
+                        color = CHESS_BOARD_BLACK_COLOR;
+                        text_color = CHESS_BOARD_WHITE_COLOR;
+                    }
+                    //-- Generate Point 1
+                    env::Point2D point1 = env::Point2D(
+                        j * box_length, // Correct order for X coordinate
+                        i * box_length, // Correct order for Y coordinate
+                        0,
+                        color
+                    );
+                    //-- Generate Point 2
+                    env::Point2D point2 = env::Point2D(
+                        j * box_length + box_length,
+                        i * box_length + box_length,
+                        0,
+                        color
+                    );
+                    //-- Generate Chess Home Name
+                    std::string home_name = "";
+                    if (method == SHOW_BOX_CHESS_WEIGHTED || method == SHOW_BOX_NORMAL_WEIGHTED || method == SHOW_BOX_CHESS_COLORFUL_WEIGHTED) {
+                        home_name = std::string(1, char(65 + j)) + std::to_string(i + 1);
+                    } else {
+                        home_name = "None";
+                    }
+                    //-- Draw Box
+                    graphics.drawBox(
+                        i,
+                        env::Box2D(
+                            point1,
+                            point2
+                        ),
+                        home_name,
+                        text_color,
+                        color,
+                        true
+                    );
+                    //-- Add Box to Row
+                    row.push_back(env::Box2D(point1, point2));
+                }
+                graphics.boxes2D.push_back(row);
+            }
+            std::cout << SUCCESS "Chess Board Data has been Generated" << RESET << std::endl;
             //-- Show Graphics
             cv::waitKey(0);
             cv::imshow(WINDOW_NAME, graphics.windows.main.matrix);

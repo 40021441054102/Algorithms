@@ -186,6 +186,10 @@
     # ifndef ALGORITHMS_OMID_SOJOODI_SORTS
         # include "Sorts/Sorts.hpp"
     # endif // ALGORITHMS_OMID_SOJOODI_SORTS
+    //-- Include N Queens Algorithm
+    # ifndef ALGORITHMS_OMID_SOJOODI_NQUEENS
+        # include "NQueens/NQueens.hpp"
+    # endif // ALGORITHMS_OMID_SOJOODI_NQUEENS
     /**
      * @def ALGORITHMS_LABEL
      * @brief Algorithms Log Message
@@ -270,8 +274,8 @@
             Algorithms(
                 ENUM_SUPPORTED_ALGORITHMS algorithm,
                 ENUM_ALGORITHM_ENVIRONMENT environment,
-                ENUM_ALGORITHMS_DATA_METHOD data_method,
-                ENUM_ALGORIHTMS_PROCESSING_METHODS processing_method
+                ENUM_ALGORITHMS_DATA_METHOD data_method = USE_RANDOM_DATA,
+                ENUM_ALGORIHTMS_PROCESSING_METHODS processing_method = USE_SINGLE_THREAD
             );
             /**
              * @brief Algorithms Destructor
@@ -325,6 +329,18 @@
                 ENUM_CALCULATE_DATA_THETA calc_theta = CALCULATE_DATA_THETA_CORNER
             );
             /**
+             * @brief Generate Chess Board
+             * @details This Method Generates Chess Board for the Algorithm.
+             * 
+             * @param size The Size of the Chess Board
+             * @param environment The Environment to Use
+             */
+            void generateChessBoardData(
+                int size,
+                ENUM_SHOW_BOX_METHODS method = SHOW_BOX_CHESS_WEIGHTED,
+                ENUM_ALGORITHM_ENVIRONMENT environment = ENVIRONMENT_2D
+            );
+            /**
              * @brief Load Data from File
              * @details This Method Loads Data from File for the Algorithm.
              * 
@@ -347,20 +363,12 @@
              * @param ALGORITHM_SORT_HEAP Heap Sort Algorithm
              */
             Sorts sorts;
-            // //-- Generate Chess Board
-            // void generateChessBoard(
-            //     int size,
-            //     int graphic_mode
-            // );
-            // //-- Generate Map Data
-            // void generateMapData(
-            //     int size,
-            //     int graphic_mode,
-            //     int data_generation_method
-            // );
-            //-- Mouse Callback
-            // static void onMouseCallback(int event, int x, int y, int flags, void* userdata);
-            //-- Mouse Events
-            // void onMouse(int event, int x, int y, int flags);
+            /**
+             * @brief N Queens Algorithm
+             * @details This Method Contains N Queens Algorithm to Use.
+             * 
+             * @param ALGORITHM_N_QUEENS N Queens Algorithm
+             */
+            NQueens nqueens;
     };
 # endif // ALGORITHMS_OMID_SOJOODI

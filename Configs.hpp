@@ -47,6 +47,12 @@
      */
     # define MODULE "\033[38;2;93;255;170m[MODULE]\033[0m "
     /**
+     * @def TERMINAL_BACKGROUND
+     * @brief Terminal Background
+     * @details This Macro Defines Terminal Background Color
+     */
+    # define TERMINAL_BACKGROUND "\033[48;2;0;40;90m"
+    /**
      * @def RESET
      * @brief Reset Message
      * @details This Macro Resets Log Message Format
