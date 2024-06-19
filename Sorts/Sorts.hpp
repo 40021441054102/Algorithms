@@ -26,6 +26,14 @@
     # ifndef ALGORITHMS_OMID_SOJOODI_SORTS_INSERTION
         # include "Insertion/Insertion.hpp"
     # endif // ALGORITHMS_OMID_SOJOODI_SORTS_INSERTION
+    //-- Merge Sort
+    # ifndef ALGORITHMS_OMID_SOJOODI_SORTS_MERGE
+        # include "Merge/Merge.hpp"
+    # endif // ALGORITHMS_OMID_SOJOODI_SORTS_MERGE
+    //-- Quick Sort
+    # ifndef ALGORITHMS_OMID_SOJOODI_SORTS_QUICK
+        # include "Quick/Quick.hpp"
+    # endif // ALGORITHMS_OMID_SOJOODI_SORTS_QUICK
     /**
      * @def SORT_LABEL
      * @brief Sort Log Message
@@ -66,5 +74,15 @@
              * @details This Method Sorts an Array Using Insertion Sort Algorithm
              */
             InsertionSort insertion;
+            /**
+             * @brief Merge Sort Algorithm
+             * @details This Method Sorts an Array Using Merge Sort Algorithm
+             */
+            MergeSort merge;
+            /**
+             * @brief Quick Sort Algorithm
+             * @details This Method Sorts an Array Using Quick Sort Algorithm
+             */
+            QuickSort quick;
     };
 # endif // ALGORITHMS_OMID_SOJOODI_SORTS

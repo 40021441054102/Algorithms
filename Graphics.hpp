@@ -353,6 +353,14 @@
      */
     # define LINE_WEIGHT_BACKGROUND_PADDING        6
     /**
+     * @def BOX_COLOR
+     * @brief Box Color Configuration
+     * @details This Macro Defines the Color of the Box
+     * @note Color Object Must be cv::Scalar
+     * @note Format Must be BGR
+     */
+    # define BOX_COLOR                             cv::Scalar(40, 30, 0)
+    /**
      * @def SHOW_FRAME_THRESHOLD
      * @brief Show Frame Threshold Configuration
      * @details This Macro Defines the Threshold for Showing the Frame After Amount of Frame Update
@@ -407,6 +415,26 @@
         SHOW_ON_TEMP_WINDOW_RESET,
         SHOW_ON_MAIN_WINDOW,
         SHOW_ON_TEMP_WINDOW,
+    };
+    /**
+     * @enum ENUM_SHOW_BOX_METHODS
+     * @brief Show Box Methods Enum
+     * @details This Enum Defines the Method of Showing the Box
+     * @param SHOW_BOX_CHESS_COLORFUL_WEIGHTED Show Box with Colorful Chess and Weighted
+     * @param SHOW_BOX_NORMAL_WEIGHTED Show Box Normal with Weighted
+     * @param SHOW_BOX_CHESS_WEIGHTED Show Box with Weighted Chess
+     * @param SHOW_BOX_CHESS_COLORFUL Show Box with Colorful Chess
+     * @param SHOW_BOX_WEIGHTED Show Box with Weighted
+     * @param SHOW_BOX_NORMAL Show Box Normal
+     * @param SHOW_BOX_CHESS Show Box with Chess
+     */
+    enum ENUM_SHOW_BOX_METHODS {
+        SHOW_BOX_CHESS_COLORFUL_WEIGHTED,
+        SHOW_BOX_NORMAL_WEIGHTED,
+        SHOW_BOX_CHESS_WEIGHTED,
+        SHOW_BOX_CHESS_COLORFUL,
+        SHOW_BOX_NORMAL,
+        SHOW_BOX_CHESS,
     };
     /**
      * @namespace env
@@ -580,8 +608,8 @@
          * @brief 2D Box Class Definition
          * @details This Class Contains the Definition of 2D Box and Its Properties
          * 
-         * @param topLeft Top Left Point
-         * @param bottomRight Bottom Right Point
+         * @param p1 First Point
+         * @param p2 Second Point
          * 
          * @note All the Properties are Public
          * @note Method has Default Constructor
@@ -597,25 +625,36 @@
                  * @brief Top Left Point
                  * @details This Variable Contains the Top Left Point of the Box
                  */
-                Point2D topLeft;
+                Point2D p1;
                 /**
                  * @brief Bottom Right Point
                  * @details This Variable Contains the Bottom Right Point of the Box
                  */
-                Point2D bottomRight;
+                Point2D p2;
                 /**
                  * @brief Constructor
                  * @details This Constructor Initializes the Box with Default Values
                  */
                 Box2D();
+                /**
+                 * @brief Constructor with Parameters
+                 * @details This Constructor Initializes the Box with Given Parameters
+                 * 
+                 * @param _p1 First Point
+                 * @param _p2 Second Point
+                 */
+                Box2D(
+                    Point2D     &   _p1,
+                    Point2D     &   _p2
+                );
         };
         /**
          * @class Box3D
          * @brief 3D Box Class Definition
          * @details This Class Contains the Definition of 3D Box and Its Properties
          * 
-         * @param topDiamPoint Top Diameter Point
-         * @param downDiamPoint Down Diameter Point
+         * @param p1 Top Diameter Point
+         * @param p2 Down Diameter Point
          * 
          * @note All the Properties are Public
          * @note Method has Default Constructor
@@ -631,12 +670,12 @@
                  * @brief Top Diameter Point
                  * @details This Variable Contains the Top Diameter Point of the Box
                  */
-                Point3D topDiamPoint;
+                Point3D p1;
                 /**
                  * @brief Down Diameter Point
                  * @details This Variable Contains the Down Diameter Point of the Box
                  */
-                Point3D downDiamPoint;
+                Point3D p2;
                 /**
                  * @brief Constructor
                  * @details This Constructor Initializes the Box with Default Values
@@ -861,6 +900,20 @@
              */
             std::vector<env::Point3D> points3D;
             /**
+             * @brief 2D Boxes Instance
+             * @details This Variable Contains the 2D Boxes Instance
+             * 
+             * @note 2D Boxes Instance Must be std::vector<env::Box2D>
+             */
+            std::vector<std::vector<env::Box2D>> boxes2D;
+            /**
+             * @brief 3D Boxes Instance
+             * @details This Variable Contains the 3D Boxes Instance
+             * 
+             * @note 3D Boxes Instance Must be std::vector<env::Box3D>
+             */
+            std::vector<env::Box3D> boxes3D;
+            /**
              * @brief Constructor with Parameters
              * @details This Constructor Initializes the Graphics with Given Parameters
              * 
@@ -943,12 +996,37 @@
                 ENUM_SHOW_LINE_METHODS show_method,
                 ENUM_SHOW_WINDOW_MODE window_method
             );
-            void drawText(
-                std::string text,
-                env::Point2D point,
-                cv::Scalar color,
-                double size,
-                int thickness
+            /**
+             * @brief Method to Draw Box
+             * @details This Method Draws a Box on the Screen
+             * 
+             * @param box Box
+             * @param info Info
+             * @param color Color
+             * @param show_flag Show Flag
+             * @param window_method Window Method
+             */
+            void drawBox(
+                int index,
+                env::Box2D box,
+                std::string info,
+                cv::Scalar text_color,
+                cv::Scalar color = BOX_COLOR,
+                bool show_flag = true,
+                enum ENUM_SHOW_BOX_METHODS method = SHOW_BOX_CHESS_WEIGHTED
+            );
+            /**
+             * @brief Method to Draw Image
+             * @details This Method Draws an Image on the Screen inside the Box
+             * 
+             * @param p1 Point 1
+             * @param p2 Point 2
+             * @param image Image
+             */
+            void drawImage(
+                cv::Point p1,
+                cv::Point p2,
+                cv::Mat image
             );
     };
     /**

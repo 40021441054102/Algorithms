@@ -40,8 +40,22 @@
      * @details This Constructor Initializes the Box with Default Values
      */
     env::Box2D::Box2D() {
-        topLeft = Point2D();
-        bottomRight = Point2D();
+        p1 = Point2D();
+        p2 = Point2D();
+    }
+    /**
+     * @brief Constructor with Parameters
+     * @details This Constructor Initializes the Box with Given Parameters
+     * 
+     * @param _p1 Point 1
+     * @param _p2 Point 2
+     */
+    env::Box2D::Box2D(
+        env::Point2D    &   _p1,
+        env::Point2D    &   _p2
+    ) {
+        p1 = _p1;
+        p2 = _p2;
     }
     /**
      * @brief Constructor
@@ -81,8 +95,8 @@
      * @details This Constructor Initializes the Box with Default Values
      */
     env::Box3D::Box3D() {
-        topDiamPoint = Point3D();
-        downDiamPoint = Point3D();
+        p1 = Point3D();
+        p2 = Point3D();
     }
     /**
      * @brief Constructor with Parameters
@@ -117,7 +131,7 @@
             //-- Show Main Window
             cv::imshow(WINDOW_NAME, windows.main.matrix);
             //-- Show Info Window
-            cv::imshow(INFO_WINDOW_NAME, windows.info.matrix);
+            // cv::imshow(INFO_WINDOW_NAME, windows.info.matrix);
             //-- Get Screen Resolution
             Display* disp = XOpenDisplay(NULL);
             Screen* scrn = DefaultScreenOfDisplay(disp);
@@ -943,5 +957,125 @@
                 cv::waitKey(1);
             }
         }
+    }
+    /**
+     * @brief Method to Draw Box
+     * @details This Method Draws a Box on the Screen
+     * 
+     * @param box Box
+     * @param info Info
+     * @param color Color
+     * @param show_flag Show Flag
+     * @param window_method Window Method
+     */
+    void Graphics::drawBox(
+        int index,
+        env::Box2D box,
+        std::string info,
+        cv::Scalar text_color,
+        cv::Scalar color,
+        bool show_flag,
+        enum ENUM_SHOW_BOX_METHODS method
+    ) {
+        //-- Handle Methods
+        if (method == SHOW_BOX_CHESS) {
+            //-- Not Implemented Yet
+            std::cout << ERROR "Show Box Method Not Implemented Yet !" << std::endl;
+        } else if (method == SHOW_BOX_CHESS_WEIGHTED) {
+            cv::rectangle(
+                windows.main.matrix,
+                cv::Point(box.p1.x, box.p1.y),
+                cv::Point(box.p2.x, box.p2.y),
+                color,
+                -1
+            );
+            //-- Calculate Mid Point
+            env::Point2D mid_point(
+                (box.p1.x + box.p2.x) / 2,
+                (box.p1.y + box.p2.y) / 2,
+                0,
+                color
+            );
+            //-- Initialize Weight Text (Features May Be Added in Future)
+            std::string weight_text = info;
+            //-- Get Text Size
+            cv::Size text_size = cv::getTextSize(
+                weight_text,
+                cv::FONT_HERSHEY_SIMPLEX,
+                LINE_WEIGHT_TEXT_SIZE,
+                LINE_WEIGHT_TEXT_THICKNESS,
+                0
+            );
+            //-- Calculate Text Position
+            cv::Point text_position(
+                mid_point.x - text_size.width / 2 + 1,
+                mid_point.y + text_size.height / 2
+            );
+            //-- Draw Text
+            cv::putText(
+                windows.main.matrix,
+                weight_text,
+                text_position,
+                cv::FONT_HERSHEY_SIMPLEX,
+                LINE_WEIGHT_TEXT_SIZE,
+                text_color,
+                LINE_WEIGHT_TEXT_THICKNESS
+            );
+        } else if (method == SHOW_BOX_CHESS_COLORFUL) {
+            //-- Not Implemented Yet
+            std::cout << ERROR "Show Box Method Not Implemented Yet !" << std::endl;
+        } else if (method == SHOW_BOX_CHESS_COLORFUL_WEIGHTED) {
+            //-- Not Implemented Yet
+            std::cout << ERROR "Show Box Method Not Implemented Yet !" << std::endl;
+        } else if (method == SHOW_BOX_NORMAL) {
+            //-- Not Implemented Yet
+            std::cout << ERROR "Show Box Method Not Implemented Yet !" << std::endl;
+        } else if (method == SHOW_BOX_NORMAL_WEIGHTED) {
+            //-- Not Implemented Yet
+            std::cout << ERROR "Show Box Method Not Implemented Yet !" << std::endl;
+        } else {
+            //-- Not Implemented Yet
+            std::cout << ERROR "Show Box Method Not Implemented Yet !" << std::endl;
+        }
+        //-- Show Flag
+        if (show_flag) {
+            //-- Show Main Window
+            cv::imshow(WINDOW_NAME, windows.main.matrix);
+            cv::waitKey(1);
+        }
+    }
+    /**
+     * @brief Method to Draw Image
+     * @details This Method Draws an Image on the Screen inside the Box
+     * 
+     * @param p1 Point 1
+     * @param p2 Point 2
+     * @param image Image
+     */
+    void Graphics::drawImage(
+        cv::Point p1,
+        cv::Point p2,
+        cv::Mat image
+    ) {
+        //-- Check if Image is Empty
+        if (image.empty()) {
+            std::cout << ERROR "Image is Empty !" << std::endl;
+            return;
+        }
+        //-- Validate Points
+        if (p1.x >= p2.x || p1.y >= p2.y) {
+            std::cout << ERROR "Invalid Points for Image Drawing !" << std::endl;
+            return;
+        }
+        //-- Calculate Size of Rectangle
+        int width = p2.x - p1.x;
+        int height = p2.y - p1.y;
+        // Create a Rectangle Region of Interest (ROI)
+        cv::Rect roi(p1.x, p1.y, width, height);
+        //-- Resize the Image to Fit the Rectangle
+        cv::Mat resizedImage;
+        cv::resize(image, resizedImage, cv::Size(width, height));
+        //-- Copy the Resized Image to the Temp Window
+        resizedImage.copyTo(windows.temp1.matrix(roi));
     }
 # endif // GRAPHICS_OMID_SOJOODI

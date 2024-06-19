@@ -67,9 +67,9 @@ int main() {
         std::cout << TAB TAB YELLOW "1.1." YELLOW2 " Insertion Sort" IMPLEMENTED << std::endl;
         std::cout << TAB TAB YELLOW "1.2." YELLOW2 " Selection Sort" IMPLEMENTED << std::endl;
         std::cout << TAB TAB YELLOW "1.3." YELLOW2 " Bubble Sort" IMPLEMENTED << std::endl;
-        std::cout << TAB TAB YELLOW "1.4." YELLOW2 " Merge Sort" IMPLEMENTING << std::endl;
-        std::cout << TAB TAB YELLOW "1.5." YELLOW2 " Quick Sort" IMPLEMENTING << std::endl;
-        std::cout << TAB TAB YELLOW "1.6." YELLOW2 " Heap Sort" IMPLEMENTING << std::endl;
+        std::cout << TAB TAB YELLOW "1.4." YELLOW2 " Quick Sort" IMPLEMENTED << std::endl;
+        std::cout << TAB TAB YELLOW "1.5." YELLOW2 " Merge Sort" IMPLEMENTED << std::endl;
+        std::cout << TAB TAB YELLOW "1.6." YELLOW2 " Heap Sort" NOT_IMPLEMENTED << std::endl;
         //-- Search
         std::cout << TAB CYAN "2." CYAN2 " Search" << std::endl;
         std::cout << TAB TAB YELLOW "2.1." YELLOW2 " Linear Search" NOT_IMPLEMENTED << std::endl;
@@ -118,7 +118,7 @@ int main() {
         std::cout << TAB TAB YELLOW "11.1." YELLOW2 " Huffman Coding" IMPLEMENTING << std::endl;
         //-- N Queens Problem
         std::cout << TAB CYAN "12." CYAN2 " N Queens Problem" << std::endl;
-        std::cout << TAB TAB YELLOW "12.1." YELLOW2 " N Queens Problem" IMPLEMENTING << std::endl;
+        std::cout << TAB TAB YELLOW "12.1." YELLOW2 " N Queens Problem" IMPLEMENTED << std::endl;
         //-- Convex Hull
         std::cout << TAB CYAN "13." CYAN2 " Convex Hull" << std::endl;
         std::cout << TAB TAB YELLOW "13.1." YELLOW2 " Jarvis March" IMPLEMENTING << std::endl;
@@ -206,9 +206,9 @@ int main() {
                 std::cout << TAB CYAN "1." CYAN2 " Insertion Sort"  IMPLEMENTED << std::endl;
                 std::cout << TAB CYAN "2." CYAN2 " Selection Sort"  IMPLEMENTED << std::endl;
                 std::cout << TAB CYAN "3." CYAN2 " Bubble Sort"     IMPLEMENTED << std::endl;
-                std::cout << TAB CYAN "4." CYAN2 " Merge Sort"      IMPLEMENTING << std::endl;
-                std::cout << TAB CYAN "5." CYAN2 " Quick Sort"      IMPLEMENTING << std::endl;
-                std::cout << TAB CYAN "6." CYAN2 " Heap Sort"       IMPLEMENTING << std::endl;
+                std::cout << TAB CYAN "4." CYAN2 " Quick Sort"      IMPLEMENTED << std::endl;
+                std::cout << TAB CYAN "5." CYAN2 " Merge Sort"      IMPLEMENTED << std::endl;
+                std::cout << TAB CYAN "6." CYAN2 " Heap Sort"       NOT_IMPLEMENTED << std::endl;
                 std::cout << TAB CYAN "0." CYAN2 " Back" << std::endl;
                 int choice;
                 std::cout << CYAN "Enter Choice : " CYAN2; std::cin >> choice;
@@ -255,14 +255,59 @@ int main() {
                     }
                     //-- Merge Sort
                     case 4: {
+                        //-- Create Algorithm Object
+                        Algorithms algorithm(
+                            ALGORITHM_SORT_QUICK,
+                            ENVIRONMENT_2D,
+                            USE_RANDOM_DATA,
+                            USE_SINGLE_THREAD
+                        );
                         break;
                     }
                     //-- Quick Sort
                     case 5: {
+                        //-- Create Algorithm Object
+                        Algorithms algorithm(
+                            ALGORITHM_SORT_MERGE,
+                            ENVIRONMENT_2D,
+                            USE_RANDOM_DATA,
+                            USE_SINGLE_THREAD
+                        );
                         break;
                     }
                     //-- Heap Sort
                     case 6: {
+                        break;
+                    }
+                    //-- Default
+                    default: {
+                        break;
+                    }
+                }
+                break;
+            }
+            //-- N Queens Problem
+            case 12: {
+                clearTerminal();
+                std::cout << CYAN " N Queens Problem" << std::endl;
+                std::cout << TAB CYAN "1." CYAN2 " N Queens Problem" IMPLEMENTED << std::endl;
+                std::cout << TAB CYAN "0." CYAN2 " Back" << std::endl;
+                int choice;
+                std::cout << CYAN "Enter Choice : " CYAN2; std::cin >> choice;
+                //-- Handle Choice
+                switch (choice) {
+                    //-- Back
+                    case 0: {
+                        // cv::destroyAllWindows();
+                        break;
+                    }
+                    //-- N Queens Problem
+                    case 1: {
+                        //-- Create Algorithm Object
+                        Algorithms algorithm(
+                            ALGORITHM_N_QUEENS,
+                            ENVIRONMENT_2D
+                        );
                         break;
                     }
                     //-- Default
