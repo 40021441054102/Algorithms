@@ -311,7 +311,7 @@
                     QUICK_ASCENDING,
                     true,
                     graphics,
-                    QUICK_SORT_THETA
+                    QUICK_SORT_LEFT_TO_RIGHT
                 );
                 //-- Starting Time
                 begin_time = std::chrono::high_resolution_clock::now();

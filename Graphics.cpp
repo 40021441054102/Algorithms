@@ -131,7 +131,7 @@
             //-- Show Main Window
             cv::imshow(WINDOW_NAME, windows.main.matrix);
             //-- Show Info Window
-            cv::imshow(INFO_WINDOW_NAME, windows.info.matrix);
+            // cv::imshow(INFO_WINDOW_NAME, windows.info.matrix);
             //-- Get Screen Resolution
             Display* disp = XOpenDisplay(NULL);
             Screen* scrn = DefaultScreenOfDisplay(disp);
